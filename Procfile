@@ -1,0 +1,1 @@
+web: gunicorn wax_wisdom.wsgi
