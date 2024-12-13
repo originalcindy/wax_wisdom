@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-k)&&+pje&1s1yfxi5q)oox5h#h_633#vq$aiiusb62_8rto!rk
 DEBUG = False
 
 ALLOWED_HOSTS = ["8000-originalcindy-waxwisdom-vubv6spssin.ws.codeinstitute-ide.net"
-,'.herokuapp.com']
+    ,'.herokuapp.com']
 
 
 # Application definition
