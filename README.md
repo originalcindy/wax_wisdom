@@ -123,9 +123,7 @@ Reviews and ratings system for workshops.
 Data collection on user behavior and popular blog topics (for potential analytics).
 
 MoSCoW Prioritization
-Must Have (Critical for project success)
-These are essential features and functionalities that the project cannot be delivered without.
-
+Must Have 
 User Authentication
 
 Registration, login, and logout functionality.
@@ -234,7 +232,6 @@ User Authentication
 As a user, I want to register and log in so that I can book workshops and leave reviews.
 As an admin, I want to manage users so that I can monitor bookings and reviews.
 
-
 The Wax Wisdom platform will include the following MVP functionalities:
 
 User registration and role-based dashboards.
@@ -260,15 +257,8 @@ Desktop home page view
 
 alt text
 
-Specialist Search Results
-Homepage Wireframe
-
-Homepage Wireframe
-
-Appointment Booking
-Homepage Wireframe
-
-Homepage Wireframe
+Blog post page
+![alt text](<static/images/Blog Post wireframe.png>)
 
 User Dashboards (Patient and Specialist)
 Admin Panel
