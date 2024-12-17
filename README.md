@@ -1,5 +1,5 @@
 ##Wax Wisdom
-Wax Wisdom was originally created as a Bi weekly blog which posted candle frangrance combinations as well as how to tutorials for its readers. The blog became so popular and received so many messages for sales of the products featured that the owners decided to create a shop.
+Wax Wisdom is a fictious candle making blog which posts blogs weekly on various fragrance combinations, tips etc as well as how to tutorials for its readers. The blog became so popular and received so many messages that the owner decided to host candle making workshops for her loyal customers. 
 
 Table of Contents
 Introduction
@@ -79,24 +79,147 @@ Project Planning
 Strategy Plane
 The primary objective of Calm Candles is to bring together an informative blog about candle creation and ecommerce. By offering an intuitive interface, users can easily buy candles safely and seamlessly from a trusted company who beleive in high quality.
 
-Site Goals
-Provide customers with a user-friendly platform to buy candles.
-Allow customers to register a username so they can track their orders with ease.
-Offer an intuitive interface with role-based dashboards for admins.
-Agile Methodologies - Project Management
-I used an agile approach to project management. The HealMate development process was broken into sprints, and tasks were added to the GitHub project board to be tracked and managed through issues.
+Your site goals for the Wax Wisdom project will align with the purpose of the site, its intended audience, and the core functionalities you plan to implement. Here’s a detailed breakdown of the site goals:
+
+1. Provide Candle-Related Information
+Goal: Establish Wax Wisdom as a trusted source of information about candles and candle-making.
+Features Supporting This Goal:
+Blog section with engaging and informative posts about candles, DIY tips, and related topics.
+Easy-to-navigate structure for users to browse blog posts.
+2. Offer Workshop Booking
+Goal: Enable users to easily book candle-making workshops to enhance their skills and learn about the art of candle-making.
+Features Supporting This Goal:
+Workshop listing with details (e.g., date, time, location, capacity).
+Workshop booking system with availability and validation for user bookings.
+Confirmation and notification system for bookings.
+3. Build a Community of Candle Enthusiasts
+Goal: Create an engaging platform for users who are passionate about candles and candle-making.
+Features Supporting This Goal:
+User authentication to allow interaction with the site (e.g., booking, leaving reviews).
+Review system for users to share their feedback on workshops.
+Potential for future community features, like user comments on blog posts or forums.
+4. Enhance Brand Identity
+Goal: Promote the Wax Wisdom brand as a leading candle-making workshop provider.
+Features Supporting This Goal:
+Consistent and aesthetically pleasing design aligned with the brand.
+Content that highlights the expertise and unique selling points of Wax Wisdom workshops.
+A "About Us" section to build trust and provide background about the company.
+5. Ensure Usability and Accessibility
+Goal: Deliver a user-friendly and accessible experience for all users, regardless of device or ability.
+Features Supporting This Goal:
+Responsive design that adapts to all screen sizes (mobile, tablet, desktop).
+Adherence to Web Content Accessibility Guidelines (WCAG).
+Clear navigation and intuitive user interface.
+6. Drive Business Growth
+Goal: Increase workshop attendance and grow Wax Wisdom’s customer base.
+Features Supporting This Goal:
+Easy-to-use booking process that minimizes user friction.
+SEO-friendly blog content to drive organic traffic.
+Integration of social sharing options to promote content and workshops.
+7. Gather Feedback and Insights
+Goal: Collect valuable feedback from users to improve the workshops and the overall user experience.
+Features Supporting This Goal:
+Reviews and ratings system for workshops.
+Data collection on user behavior and popular blog topics (for potential analytics).
 
 MoSCoW Prioritization
-Must-Haves: User registration and login,  workshop booking.
-Should-Haves: Feedback system, health tools, advanced filtering options.
-Could-Haves: Profile pictures for users and specialists, messaging system.
-Won’t-Haves: Full payment integration, doctor-patient messaging for now.
+Must Have (Critical for project success)
+These are essential features and functionalities that the project cannot be delivered without.
+
+User Authentication
+
+Registration, login, and logout functionality.
+Role-based access (admin vs. customer).
+Password security using Django's built-in authentication.
+Workshop Booking System
+
+Form for users to book workshops.
+Database to store booking information.
+Booking validation (e.g., availability, duplicate bookings).
+Blog Section
+
+Create, read, update, delete (CRUD) functionality for blog posts (admin-only).
+Blog post listings and detailed views for users.
+SEO-friendly structure for blog posts.
+Workshop Review System
+
+Users can leave reviews for workshops.
+Display reviews on the workshop detail pages.
+Responsive Design
+
+Fully functional on mobile, tablet, and desktop.
+Accessible layout adhering to Web Content Accessibility Guidelines (WCAG).
+Database and Models
+
+Custom models for workshops, bookings, and reviews.
+Properly managed migrations to reflect database structure.
+Basic Deployment
+
+Host the application on a cloud platform (e.g., Heroku or Render).
+Secure deployment (environment variables, DEBUG mode off).
+Should Have (Important but not critical for immediate delivery)
+These features add significant value and should be included if time permits.
+
+About Us Page
+
+Informational page about the company and its mission.
+Improved Notifications
+
+Confirmation emails for workshop bookings.
+Feedback messages after booking or submitting a review.
+Pagination and Filtering
+
+Blog post pagination.
+Filtering workshops by date, location, or availability.
+Admin Dashboard Enhancements
+
+Admin view to manage bookings and reviews.
+Charts or stats to track booking trends.
+Could Have (Desirable but not necessary)
+These features can be deferred to later phases of the project.
+
+Search Functionality
+
+Search bar for blog posts or workshops.
+Wishlist for Workshops
+
+Allow users to "save" workshops they are interested in.
+Social Sharing
+
+Buttons to share blog posts or workshops on social media.
+Workshop Recommendations
+
+Suggest workshops based on user preferences or past bookings.
+User Profile Page
+
+View past bookings and reviews submitted.
+Won’t Have (For Now) (Not in scope for the current project)
+These features are outside the scope of the current project but could be considered for future iterations.
+
+E-commerce Integration
+
+Selling candles or workshop-related products online.
+Advanced Analytics
+
+User behavior tracking and advanced reporting tools.
+Gamification
+
+Reward systems or badges for workshop participation or reviews.
+Live Chat or Chatbot
+
+Customer support features like live chat.
+
 Sprints
-Sprint 1: Initial Setup - Project, repository, environment setup.
-Sprint 2: User Authentication & Role-Based Dashboards.
-Sprint 3: Specialist Search & Appointment Booking System.
-Sprint 4: Static Pages & UI/UX Improvements.
-Sprint 5: Deployment & Testing.
+Project setup, GitHub configuration, Agile board setup, and initial database setup.
+Create blog models and views, implement list and detail pages, and add styling.
+Create workshop and booking models, forms, and views. Test booking functionality.
+Implement user authentication (register, login, logout) and role-based access.
+Create review model, forms, and views. Link reviews to workshops.
+Complete front-end styling (home page, blog, booking, reviews).
+Write tests for models, forms, and views. Perform manual testing.
+Prepare deployment (static files, environment variables).
+Deploy project to the cloud. Finalize README file with documentation.
+
 Sample User Stories
 Blog
 As a user, I want to view a list of blog posts so that I can read about candle-related topics.
@@ -158,7 +281,7 @@ The ERD also demonstrates the platform's role-based structure. Each user is assi
 
 ERD Illustration
 ![alt text](<static/ERD wax wisdom (1).png>)
-The above ERD was generated using Python Extension - pygraphviz and pydotplus. Documentation at https://django-extensions.readthedocs.io/en/latest/graph_models.html.
+The above ERD was generated using lucid.app
 
 Security
 All data is securely handled with Django’s security features, including:
