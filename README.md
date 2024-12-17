@@ -1,60 +1,62 @@
-##Wax Wisdom
-Wax Wisdom is a fictious candle making blog which posts blogs weekly on various fragrance combinations, tips etc as well as how to tutorials for its readers. The blog became so popular and received so many messages that the owner decided to host candle making workshops for her loyal customers. 
+# **Wax Wisdom**
+Wax Wisdom is a fictious candle making blog which posts blogs weekly on various fragrance combinations, tips etc as well as how to tutorials for its readers. The blog became so popular and received so many messages that the owner Lechner decided to host candle making workshops for her loyal customers. 
 
-Table of Contents
-Introduction
-Overview
-UX - User Experience
-Design Inspiration
-Colour Scheme
-Font
-Project Planning
-Strategy Plane
-Site Goals
-Agile Methodologies - Project Management
-MoSCoW Prioritization
-Sprints
-User Stories
-Scope Plane
-Structural Plane
-Skeleton & Surface Planes
-Wireframes
-Database Schema - Entity Relationship Diagram
-Security
-Features
-User View - Registered/Unregistered
-Role-Based Dashboard Features
-Role-Based Navigation
-Soft Delete/Archiving for Patient Accounts
-Appointment Booking System
-Messaging System
-Profile Management
-Confirmation Messages
-CRUD Functionality
-Feature Showcase
-Future Features
-Technologies & Languages Used
-Libraries & Frameworks
-Tools & Programs
-Testing
-Validation Testing
-User Testing
-Bugs
-Deployment
-Connecting to GitHub
-Django Project Setup
-Cloudinary API
-PostgreSQL
-Heroku deployment
-Clone project
-Fork Project
-Privacy Policy
-Credits
-Code
-Media
-Additional reading/tutorials/books/blogs
-Acknowledgements
-Overview
+## **Table of Contents**
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Overview](#overview)
+3. [UX - User Experience](#ux---user-experience)
+    - [Design Inspiration](#design-inspiration)
+    - [Colour Scheme](#colour-scheme)
+    - [Font](#font)
+4. [Project Planning](#project-planning)
+    - [Strategy Plane](#strategy-plane)
+    - [Site Goals](#site-goals)
+    - [Agile Methodologies - Project Management](#agile-methodologies---project-management)
+    - [MoSCoW Prioritization](#moscow-prioritization)
+    - [Sprints](#sprints)
+    - [User Stories](#user-stories)
+5. [Scope Plane](#scope-plane)
+6. [Structural Plane](#structural-plane)
+7. [Skeleton & Surface Planes](#skeleton--surface-planes)
+    - [Wireframes](#wireframes)
+8. [Database Schema - Entity Relationship Diagram](#database-schema---entity-relationship-diagram)
+9. [Security](#security)
+10. [Features](#features)
+    - [User View - Registered/Unregistered](#user-view---registeredunregistered)
+    - [Role-Based Dashboard Features](#role-based-dashboard-features)
+    - [Role-Based Navigation](#role-based-navigation)
+    - [Soft Delete/Archiving for Patient Accounts](#soft-deletearchiving-for-patient-accounts)
+    - [Appointment Booking System](#appointment-booking-system)
+    - [Messaging System](#messaging-system)
+    - [Profile Management](#profile-management)
+    - [Confirmation Messages](#confirmation-messages)
+    - [CRUD Functionality](#crud-functionality)
+    - [Feature Showcase](#feature-showcase)
+11. [Future Features](#future-features)
+12. [Technologies & Languages Used](#technologies--languages-used)
+13. [Libraries & Frameworks](#libraries--frameworks)
+14. [Tools & Programs](#tools--programs)
+15. [Testing](#testing)
+  - [Validation Testing](#validation-testing)
+  - [User Testing](#user-testing)
+  - [Bugs](#bugs)
+16. [Deployment](#deployment)
+    - [Connecting to GitHub](#connecting-to-github)
+    - [Django Project Setup](#django-project-setup)
+    - [Cloudinary API](#cloudinary-api)
+    - [PostgreSQL](#postgresql)
+    - [Heroku deployment](#heroku-deployment)
+    - [Clone project](#clone-project)
+    - [Fork Project](#fork-project)
+17. [Privacy Policy](#privacy-policy)
+18. [Credits](#credits)
+    - [Code](#code)
+    - [Media](#media)
+    - [Additional reading/tutorials/books/blogs](#additional-readingtutorialsbooksblogs)
+19. [Acknowledgements](#acknowledgements)
+
+## overview
 Wax wisdom is an online blog website which offers customers weekly candle making workshop that allows users to:
 
 register and create a profile
@@ -65,9 +67,11 @@ UX - User Experience
 Design Inspiration
 My inspiration for Wax wisdom came from my joy of making candles .
 
+## UX - User Experience
+
 Colour Scheme
 alt text In line with the healthcare theme, I chose a neutral, clean palette:
-![alt text](<static/images/colour scheme calm candles.png>)
+![alt text]
 Primary Color: #17A2B8 (Navy Blue-Grey)
 Secondary Color: #132B67 (Hospital Blue)
 Accent Color: #333 (grey)
@@ -76,7 +80,9 @@ Font
 For the logo and headers, I will be using Lora.
 The rest of the body text and interactive elements will use Catamaran for its readability and clean look.
 Project Planning
-Strategy Plane
+
+## Strategy Plane
+### Design Inspiration
 The primary objective of Calm Candles is to bring together an informative blog about candle creation and ecommerce. By offering an intuitive interface, users can easily buy candles safely and seamlessly from a trusted company who beleive in high quality.
 
 Your site goals for the Wax Wisdom project will align with the purpose of the site, its intended audience, and the core functionalities you plan to implement. Here’s a detailed breakdown of the site goals:
@@ -122,8 +128,8 @@ Features Supporting This Goal:
 Reviews and ratings system for workshops.
 Data collection on user behavior and popular blog topics (for potential analytics).
 
-MoSCoW Prioritization
-Must Have 
+#### MoSCoW Prioritization
+## Must Have 
 User Authentication
 
 Registration, login, and logout functionality.
@@ -161,8 +167,7 @@ These features add significant value and should be included if time permits.
 About Us Page
 
 Informational page about the company and its mission.
-Improved Notifications
-
+Improved Notificatons
 Confirmation emails for workshop bookings.
 Feedback messages after booking or submitting a review.
 Pagination and Filtering
@@ -175,7 +180,7 @@ Admin view to manage bookings and reviews.
 Charts or stats to track booking trends.
 Could Have (Desirable but not necessary)
 These features can be deferred to later phases of the project.
-
+## Wont Have
 Search Functionality
 
 Search bar for blog posts or workshops.
@@ -191,8 +196,7 @@ Suggest workshops based on user preferences or past bookings.
 User Profile Page
 
 View past bookings and reviews submitted.
-Won’t Have (For Now) (Not in scope for the current project)
-These features are outside the scope of the current project but could be considered for future iterations.
+
 
 E-commerce Integration
 
@@ -207,18 +211,22 @@ Live Chat or Chatbot
 
 Customer support features like live chat.
 
-Sprints
-Project setup, GitHub configuration, Agile board setup, and initial database setup.
-Create blog models and views, implement list and detail pages, and add styling.
-Create workshop and booking models, forms, and views. Test booking functionality.
-Implement user authentication (register, login, logout) and role-based access.
-Create review model, forms, and views. Link reviews to workshops.
-Complete front-end styling (home page, blog, booking, reviews).
-Write tests for models, forms, and views. Perform manual testing.
-Prepare deployment (static files, environment variables).
-Deploy project to the cloud. Finalize README file with documentation.
+Won’t Have (For Now) (Not in scope for the current project)
+Won’t Have (For Now) (Not in scope for the current project)
 
-Sample User Stories
+## Sprints
+
+**sprint 1** Project setup, GitHub configuration, Agile board setup, and initial database setup.
+**sprint 2**Create blog models and views, implement list and detail pages, and add styling.
+**sprint 3**Create workshop and booking models, forms, and views. Test booking functionality.
+**sprint 4**Implement user authentication (register, login, logout) and role-based access.
+**sprint 5**Create review model, forms, and views. Link reviews to workshops.
+**sprint 6**Complete front-end styling (home page, blog, booking, reviews).
+**sprint 7**Write tests for models, forms, and views. Perform manual testing.
+**sprint 8**Prepare deployment (static files, environment variables).
+**sprint 9**Deploy project to the cloud. Finalise README file with documentation.
+
+## Sample User Stories
 Blog
 As a user, I want to view a list of blog posts so that I can read about candle-related topics.
 As an admin, I want to create, edit, and delete blog posts so that I can manage content on the website.
@@ -240,7 +248,7 @@ Specialist profiles showcasing specialty, experience, and availability.
 Structural Plane
 The site is structured around an easy-to-use interface. The primary menu includes links to specialist searches, appointment bookings, and user profile management.
 
-Skeleton & Surface Planes
+## Skeleton & Surface Planes
 Wireframes
 Wireframes were created for the following key pages to ensure an intuitive user journey:
 
@@ -264,10 +272,10 @@ User Dashboards (Patient and Specialist)
 Admin Panel
 Wireframes were designed using Balsamiq, ensuring responsiveness across devices.
 
-Database Schema - Entity Relationship Diagram
-The ERD for HealMate illustrates the relationships between the users, specialists, appointments, and more. This is essential to demonstrate the relationships between the different models in the PostgreSQL database.
+## Database Schema - Entity Relationship Diagram
+The ERD for Wax wisdom illustrates the relationships between the users, candle enthusiasts, bookings, and more. This is essential to demonstrate the relationships between the different models in the PostgreSQL database.
 
-The ERD also demonstrates the platform's role-based structure. Each user is assigned to a specific group (patient, specialist, or admin) that determines their access level. PatientProfile and SpecialistProfile models are linked to the User model, and each profile type has specific fields relevant to their role. Admins have broader access to manage both specialist vetting and platform data.
+The ERD also demonstrates the platform's role-based structure. Each user is assigned to a specific group that determines their access level. PatientProfile and SpecialistProfile models are linked to the User model, and each profile type has specific fields relevant to their role. Admins have broader access to manage both specialist vetting and platform data.
 
 ERD Illustration
 ![alt text](<static/ERD wax wisdom (1).png>)
