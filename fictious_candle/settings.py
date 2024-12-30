@@ -78,11 +78,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "fictious_candle.wsgi.application"
 
-AUTHENTICATION_BACKENDS = [
-    'candle.backends.EmailOrUsernameModelBackend',
-    'django.contrib.auth.backends.ModelBackend', 
-]
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -134,3 +129,12 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTHENTICATION_BACKENDS = [
+    'candle.backends.EmailOrUsernameModelBackend',
+    'django.contrib.auth.backends.ModelBackend', 
+]
+
+LOGIN_REDIRECT_URL = 'candle:home'
+LOGOUT_REDIRECT_URL = 'candle:home'
+LOGIN_URL = 'candle:login'
