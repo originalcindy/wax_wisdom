@@ -138,3 +138,4 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_REDIRECT_URL = 'candle:home'
 LOGOUT_REDIRECT_URL = 'candle:home'
 LOGIN_URL = 'candle:login'
+LOGOUT_REDIRECT_URL = 'candle:home'

@@ -1,20 +1,23 @@
 from django.shortcuts import render,redirect
 from django.views.generic.base import TemplateView
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView,LogoutView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.contrib.auth import login
+
 from .forms import LoginForm,SignUpForm
 
 
 class HomeView(TemplateView):
     template_name = 'candle/home.html'
 
-class CandleLoginView(LoginView):
+class CandleLoginView(SuccessMessageMixin, LoginView):
     form_class = LoginForm
     template_name = "candle/login.html"
-    # redirect_authenticated_user = True
+    redirect_authenticated_user = True
+    success_message = "Login Successful"
     
 class CandleSignUpView(CreateView):
     template_name = 'candle/signup.html'
@@ -33,3 +36,12 @@ class CandleSignUpView(CreateView):
         if request.user.is_authenticated:
             return redirect('candle:home')
         return super().get(request, *args, **kwargs)
+    
+class CandleLogoutView(LogoutView):
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        messages.success(request, "You have been logged out successfully.")
+        return response
+    
+class AboutView(TemplateView):
+    template_name = "candle/about.html"
