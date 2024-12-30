@@ -12,6 +12,7 @@ class Config(models.Model):
     site_description = models.TextField()
     facebook_url = models.URLField(blank=True, null=True)
     instagram_url = models.URLField(blank=True, null=True)
+    pinterest_url = models.URLField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -40,6 +41,7 @@ class Config(models.Model):
             'site_description': self.site_description or '',
             'facebook_url': self.facebook_url or '',
             'instagram_url': self.instagram_url or '',
+            "pinterest_url": self.pinterest_url or ""
         }
     
 class Blogpost(models.Model):

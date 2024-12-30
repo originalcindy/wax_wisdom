@@ -78,6 +78,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "fictious_candle.wsgi.application"
 
+AUTHENTICATION_BACKENDS = [
+    'candle.backends.EmailOrUsernameModelBackend',
+    'django.contrib.auth.backends.ModelBackend', 
+]
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
