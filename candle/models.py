@@ -55,7 +55,7 @@ class Blogpost(models.Model):
     content = models.TextField()
     published_date = models.DateTimeField(auto_now_add=True)
     thumbnail = models.ImageField(
-        upload_to='blog_images/',
+        upload_to='blog_thumbnails/',
         null=True,
         blank=True,
         help_text='Featured image for the blog post'
