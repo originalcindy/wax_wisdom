@@ -33,6 +33,15 @@ class Config(models.Model):
     def get_settings(cls):
         return cls.objects.first()
     
+    def as_dict(self):
+        return {
+            'site_name': self.site_name or '',
+            'site_title': self.site_title or '',
+            'site_description': self.site_description or '',
+            'facebook_url': self.facebook_url or '',
+            'instagram_url': self.instagram_url or '',
+        }
+    
 class Blogpost(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='blogposts', related_query_name='blogpost'
