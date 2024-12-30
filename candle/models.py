@@ -46,11 +46,23 @@ class Config(models.Model):
     
 class Blogpost(models.Model):
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='blogposts', related_query_name='blogpost'
+        User, 
+        on_delete=models.CASCADE, 
+        related_name='blogposts', 
+        related_query_name='blogpost'
     )
     title = models.CharField(max_length=255)
     content = models.TextField()
-    published_date = models.DateTimeField()
+    published_date = models.DateTimeField(auto_now_add=True)
+    thumbnail = models.ImageField(
+        upload_to='blog_images/',
+        null=True,
+        blank=True,
+        help_text='Featured image for the blog post'
+    )
+
+    def __str__(self):
+        return self.title
 
     def __str__(self):
         return self.title
