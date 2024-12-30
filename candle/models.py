@@ -1,8 +1,38 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
+
 
 User = get_user_model() 
 
+
+class Config(models.Model):
+    site_name = models.CharField(max_length=255)
+    site_title = models.CharField(max_length=255)
+    site_description = models.TextField()
+    facebook_url = models.URLField(blank=True, null=True)
+    instagram_url = models.URLField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Site Configuration'
+        verbose_name_plural = 'Site Configuration'
+
+    def __str__(self):
+        return self.site_name
+
+    def save(self, *args, **kwargs):
+        if Config.objects.exists() and not self.pk:
+            # If a Config object exists
+            # update the existing one instead
+            raise ValidationError('Only one configuration allowed')
+        return super().save(*args, **kwargs)
+
+    @classmethod
+    def get_settings(cls):
+        return cls.objects.first()
+    
 class Blogpost(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='blogposts', related_query_name='blogpost'

@@ -1,6 +1,20 @@
 from django.contrib import admin
-from .models import Blogpost, CandleWorkshop, Review, Booking
+from .models import Blogpost, CandleWorkshop, Review, Booking,Config
 
+
+@admin.register(Config)
+class ConfigAdmin(admin.ModelAdmin):
+    list_display = ('site_name', 'email', 'updated_at')
+    readonly_fields = ('created_at', 'updated_at')
+
+    def has_add_permission(self, request):
+        # Only allow one configuration object
+        return not Config.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        # Prevent deletion of the configuration
+        return False
+    
 @admin.register(Blogpost)
 class BlogpostAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'published_date')
