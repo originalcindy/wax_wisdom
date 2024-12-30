@@ -4,7 +4,7 @@ from .models import Blogpost, CandleWorkshop, Review, Booking,Config
 
 @admin.register(Config)
 class ConfigAdmin(admin.ModelAdmin):
-    list_display = ('site_name', 'email', 'updated_at')
+    list_display = ('site_name', 'updated_at')
     readonly_fields = ('created_at', 'updated_at')
 
     def has_add_permission(self, request):
