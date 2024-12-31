@@ -1,12 +1,13 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import redirect
 from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import CreateView
+from django.views.generic import CreateView,ListView
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.contrib.auth import login
 
+from .models import Blogpost,CandleWorkshop
 from .forms import LoginForm,SignUpForm
 
 
@@ -45,3 +46,17 @@ class CandleLogoutView(LogoutView):
     
 class AboutView(TemplateView):
     template_name = "candle/about.html"
+
+class BlogListView(ListView):
+    model = Blogpost
+    template_name = 'candle/blogs.html'
+    context_object_name = 'blogs'
+    paginate_by = 10 
+
+    
+class WorkshopListView(ListView):
+    model = CandleWorkshop
+    template_name = 'candle/workshops.html'
+    context_object_name = 'workshops'
+    paginate_by = 10 
+    

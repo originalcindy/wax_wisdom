@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 
 User = get_user_model() 
@@ -66,6 +67,9 @@ class Blogpost(models.Model):
 
     def __str__(self):
         return self.title
+    
+    class Meta:
+        ordering = ("-published_date",)
 
 
 class CandleWorkshop(models.Model):
@@ -78,6 +82,22 @@ class CandleWorkshop(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_remaining_seats(self):
+        """
+        calculate the number of remaining seats for the workshop
+        """
+        total_booked_seats = Booking.objects.filter(
+            workshop=self,
+            status__in=['confirmed', 'pending']
+        ).aggregate(
+            total=models.Sum('number_of_seats')
+        )['total'] or 0
+        
+        return self.capacity - total_booked_seats
+    
+    class Meta:
+        ordering = ("-date",)
 
 
 class Review(models.Model):
@@ -114,3 +134,66 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"Booking by {self.user.username} for {self.workshop.title}"
+
+    def clean(self):
+        # check if workshop date hasn't passed
+        if self.workshop.date < timezone.now().date():
+            raise ValidationError("Cannot book a workshop that has already passed")
+        
+        # calculate available seats
+        total_booked_seats = Booking.objects.filter(
+            workshop=self.workshop,
+            status__in=['confirmed', 'pending']
+        ).exclude(pk=self.pk).aggregate(
+            total=models.Sum('number_of_seats')
+        )['total'] or 0
+        
+        available_seats = self.workshop.capacity - total_booked_seats
+        
+        # check if enough seats are available
+        if self.number_of_seats > available_seats:
+            raise ValidationError(f"Only {available_seats} seats available")
+        
+        # validate number of seats is positive
+        if self.number_of_seats <= 0:
+            raise ValidationError("Number of seats must be positive")
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def create_booking(cls, user, workshop, number_of_seats):
+        """
+        create a new booking for a user
+        """
+        booking = cls(
+            user=user,
+            workshop=workshop,
+            number_of_seats=number_of_seats
+        )
+        booking.save()
+        return booking
+
+    def update_booking(self, number_of_seats=None, status=None):
+        """
+        update an existing booking
+        """
+        if number_of_seats is not None:
+            self.number_of_seats = number_of_seats
+        if status is not None:
+            self.status = status
+        self.save()
+
+    def cancel_booking(self):
+        """
+        cancel a booking
+        """
+        self.status = 'cancelled'
+        self.save()
+
+    def __str__(self):
+        return f"Booking by {self.user.username} for {self.workshop.title}"
+
+    class Meta:
+        ordering = ['-booking_date']

@@ -1,7 +1,11 @@
-from .models import Config
+from .models import Config,Blogpost,CandleWorkshop
 def company_info(request):
+    config = {
+        "latest_blogs":Blogpost.objects.all()[:6],
+        "latest_workshops":CandleWorkshop.objects.all()[:6]
+    }
     try:
-        config = Config.objects.first()
-        return config.as_dict()
+        config.update(Config.objects.first().as_dict())
     except Exception as e:
-        return {}
+        pass
+    return config
