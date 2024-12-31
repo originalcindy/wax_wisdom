@@ -71,3 +71,4 @@ class BlogDetail(DetailView):
         context['related_blogs'] = Blogpost.objects.exclude(pk=self.object.pk).order_by('-published_date')[:2]
         
         return context
+    

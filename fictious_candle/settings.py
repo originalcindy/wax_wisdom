@@ -136,7 +136,6 @@ AUTHENTICATION_BACKENDS = [
     'candle.backends.EmailOrUsernameModelBackend',
     'django.contrib.auth.backends.ModelBackend', 
 ]
-
 LOGIN_REDIRECT_URL = 'candle:home'
 LOGOUT_REDIRECT_URL = 'candle:home'
 LOGIN_URL = 'candle:login'

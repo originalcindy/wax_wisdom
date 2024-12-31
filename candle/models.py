@@ -8,7 +8,6 @@ import math
 
 User = get_user_model() 
 
-
 class Config(models.Model):
     site_name = models.CharField(max_length=255)
     site_title = models.CharField(max_length=255)

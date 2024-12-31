@@ -1,4 +1,5 @@
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
+from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 from django import forms
 
@@ -78,4 +79,11 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = get_user_model()
         fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2', 'terms')
+
+    def clean_email(self):
+        """Ensure the email is unique."""
+        email = self.cleaned_data.get('email')
+        if get_user_model().objects.filter(email=email).exists():
+            raise ValidationError("A user with this email address already exists.")
+        return email
 
