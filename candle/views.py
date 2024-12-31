@@ -1,13 +1,19 @@
-from django.shortcuts import redirect,get_object_or_404
+from django.shortcuts import redirect
+from django.http import JsonResponse
+from django.views import View
 from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView,LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView,ListView,DetailView
+from django.shortcuts import get_object_or_404
+from django.core.exceptions import ValidationError
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.contrib.auth import login
+import json
 
-from .models import Blogpost,CandleWorkshop
+from .models import Blogpost,CandleWorkshop,Booking
 from .forms import LoginForm,SignUpForm
 
 
@@ -71,4 +77,77 @@ class BlogDetail(DetailView):
         context['related_blogs'] = Blogpost.objects.exclude(pk=self.object.pk).order_by('-published_date')[:2]
         
         return context
+
+class BookingCreateView(LoginRequiredMixin, View):
+    http_method_names = ['post']
     
+    def handle_no_permission(self):
+        messages.error(self.request, 'Please login to book a workshop')
+        return JsonResponse({
+            'status': 'error',
+            'message': 'Please login to book a workshop'
+        }, status=403)
+    
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            workshop_id = data.get('workshopId')
+            number_of_seats = data.get('seats')
+
+            # validate input
+            if not workshop_id or not number_of_seats:
+                messages.error(request, 'Workshop ID and number of seats are required')
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Workshop ID and number of seats are required'
+                }, status=400)
+
+            # get workshop or return 404
+            workshop = get_object_or_404(CandleWorkshop, id=workshop_id)
+
+            try:
+                # create booking using the class method
+                booking = Booking.create_booking(
+                    user=request.user,
+                    workshop=workshop,
+                    number_of_seats=number_of_seats
+                )
+
+                messages.success(
+                    request, 
+                    f'Successfully booked {number_of_seats} seat(s) for {workshop.title}'
+                )
+
+                return JsonResponse({
+                    'status': 'success',
+                    'message': 'Booking created successfully',
+                    'booking': {
+                        'id': booking.id,
+                        'workshop_title': booking.workshop.title,
+                        'number_of_seats': booking.number_of_seats,
+                        'status': booking.status,
+                        'booking_date': booking.booking_date.isoformat()
+                    }
+                })
+
+            except ValidationError as e:
+                error_message = str(e)
+                messages.error(request, error_message)
+                return JsonResponse({
+                    'status': 'error',
+                    'message': error_message
+                }, status=400)
+
+        except json.JSONDecodeError:
+            messages.error(request, 'Invalid data received')
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Invalid JSON data'
+            }, status=400)
+        except Exception as e:
+            error_message = str(e)
+            messages.error(request, f'An error occurred: {error_message}')
+            return JsonResponse({
+                'status': 'error',
+                'message': error_message
+            }, status=500)

@@ -1,9 +1,14 @@
 from django.urls import path
-from .views import HomeView,CandleLoginView,CandleSignUpView,CandleLogoutView,AboutView,BlogListView,WorkshopListView,BlogDetail
+from .views import (
+    HomeView,CandleLoginView,CandleSignUpView,CandleLogoutView,
+    AboutView,BlogListView,WorkshopListView,BlogDetail,
+    BookingCreateView
+)
 
 app_name = "candle"
 
 urlpatterns = [
+    path('bookings/',BookingCreateView.as_view(), name='bookings'),
     path('blog/<int:pk>/', BlogDetail.as_view(), name='blog_detail'),
     path("workshops/",WorkshopListView.as_view(),name="workshops"),
     path("blogs/",BlogListView.as_view(),name="blogs"),
