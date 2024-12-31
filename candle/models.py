@@ -105,6 +105,10 @@ class CandleWorkshop(models.Model):
         
         return self.capacity - total_booked_seats
     
+    @property
+    def formatted_duration(self):
+        return int(self.duration) if self.duration.is_integer() else self.duration
+    
     class Meta:
         ordering = ("-date",)
 
