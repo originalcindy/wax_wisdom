@@ -75,6 +75,9 @@ class Blogpost(models.Model):
 class CandleWorkshop(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
+    duration = models.FloatField(
+        help_text='Duration of the workshop in hours (e.g., 1.5 for 1.5 hours)'
+    )
     thumbnail = models.ImageField(
         upload_to='workshop_thumbnails/',
         null=True,
