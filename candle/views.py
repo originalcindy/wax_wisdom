@@ -1,8 +1,8 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect,get_object_or_404
 from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import CreateView,ListView
+from django.views.generic import CreateView,ListView,DetailView
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.contrib.auth import login
@@ -58,5 +58,16 @@ class WorkshopListView(ListView):
     model = CandleWorkshop
     template_name = 'candle/workshops.html'
     context_object_name = 'workshops'
-    paginate_by = 10 
-    
+    paginate_by = 10
+
+class BlogDetail(DetailView):
+    model = Blogpost
+    template_name = 'candle/blog_detail.html'
+    context_object_name = 'blog'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        context['related_blogs'] = Blogpost.objects.exclude(pk=self.object.pk).order_by('-published_date')[:2]
+        
+        return context

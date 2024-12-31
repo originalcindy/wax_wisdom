@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.utils import timezone
+import math
 
 
 User = get_user_model() 
@@ -70,6 +71,24 @@ class Blogpost(models.Model):
     
     class Meta:
         ordering = ("-published_date",)
+
+    def get_read_time(self):
+        """
+        calculate the read time of the blog post
+        """
+        word_count = len(self.content.split())
+        reading_speed = 200 
+        read_time = word_count / reading_speed
+        return math.ceil(read_time)
+    
+    def get_read_time_display(self):
+        """
+        returns a formatted string of the read time
+        """
+        minutes = self.get_read_time()
+        if minutes == 1:
+            return "1 minute read"
+        return f"{minutes} minutes read"
 
 
 class CandleWorkshop(models.Model):
