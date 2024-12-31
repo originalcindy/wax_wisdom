@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.utils import timezone
@@ -27,7 +28,7 @@ class Config(models.Model):
 
     def save(self, *args, **kwargs):
         if Config.objects.exists() and not self.pk:
-            # If a Config object exists
+            # if a Config object exists
             # update the existing one instead
             raise ValidationError('Only one configuration allowed')
         return super().save(*args, **kwargs)
@@ -128,8 +129,25 @@ class CandleWorkshop(models.Model):
     def formatted_duration(self):
         return int(self.duration) if self.duration.is_integer() else self.duration
     
+    def get_reviews(self):
+        """get all reviews for this workshop"""
+        return self.reviews.all()
+
+    def get_average_rating(self):
+        """get average rating for this workshop"""
+        avg_rating = self.reviews.aggregate(Avg('rating'))['rating__avg']
+        return avg_rating if avg_rating is not None else 5.0
+    
+    def has_user_booked(self, user):
+        """check if user has already booked this workshop"""
+        return self.bookings.filter(
+            user=user,
+            status__in=['confirmed', 'pending']
+        ).exists()
+    
     class Meta:
         ordering = ("-date",)
+    
 
 
 class Review(models.Model):
@@ -139,7 +157,7 @@ class Review(models.Model):
     workshop = models.ForeignKey(
         CandleWorkshop, on_delete=models.CASCADE, related_name='reviews', related_query_name='review'
     )
-    rating = models.IntegerField()
+    rating = models.IntegerField(default=5)
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
