@@ -13,7 +13,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth import login
 import json
 
-from .models import Blogpost,CandleWorkshop,Booking
+from .models import Blogpost,CandleWorkshop,Booking,Review
 from .forms import LoginForm,SignUpForm
 
 
@@ -87,7 +87,7 @@ class BookingCreateView(LoginRequiredMixin, View):
             'status': 'error',
             'message': 'Please login to book a workshop'
         }, status=403)
-    
+
     def post(self, request, *args, **kwargs):
         try:
             data = json.loads(request.body)
@@ -151,3 +151,23 @@ class BookingCreateView(LoginRequiredMixin, View):
                 'status': 'error',
                 'message': error_message
             }, status=500)
+
+class DashboardView(LoginRequiredMixin,TemplateView):
+    template_name = "candle/dashboard/home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+
+        if user.is_superuser:
+            context['active_workshops'] = 12  
+            context['total_bookings'] = Booking.objects.all().count()
+            context['blog_posts'] = Blogpost.objects.all().count()
+            context['average_rating'] = Review.get
+        else:
+            context['active_workshops'] = 12  
+            context['total_bookings'] = Booking.objects.filter(user=user).count()
+            context['blog_posts'] = Blogpost.objects.filter(author=user).count()
+            context['average_rating'] = 4.8  
+
+        return context

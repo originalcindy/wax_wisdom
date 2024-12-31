@@ -162,6 +162,17 @@ class Review(models.Model):
 
     def __str__(self):
         return f"Review by {self.user.username} for {self.workshop.title}"
+    
+    def get_average_rating(self, user=None):
+        """
+        calculate average rating from reviews.
+        """
+        reviews = self.objects.all()
+        if user:
+            reviews = reviews.filter(user=user)
+        
+        avg_rating = reviews.aggregate(Avg('rating'))['rating__avg']
+        return round(avg_rating, 1) if avg_rating else 0
 
 
 class Booking(models.Model):
