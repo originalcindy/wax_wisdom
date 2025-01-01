@@ -5,7 +5,7 @@ from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import CreateView,ListView,DetailView,DeleteView
+from django.views.generic import CreateView,ListView,DetailView,DeleteView,UpdateView
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import ValidationError,PermissionDenied
 from django.contrib import messages
@@ -183,6 +183,70 @@ class BookingDeleteView(LoginRequiredMixin,SuccessMessageMixin, DeleteView):
         if not (obj.user == self.request.user or self.request.user.is_superuser):
             raise PermissionDenied("You don't have permission to delete this booking.")
         return obj
+    
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
         return super().delete(request, *args, **kwargs)
+    
+class BookingUpdateView(LoginRequiredMixin, View):
+    http_method_names = ['post']
+
+    def get_object(self, pk):
+        obj = get_object_or_404(Booking.objects.all(), pk=pk)
+        if not (obj.user == self.request.user or self.request.user.is_superuser):
+            raise PermissionDenied("You don't have permission to edit this booking.")
+        return obj
+
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            booking = self.get_object(pk=data["bookingId"])
+            
+            if 'seats' in data:
+                old_seats = booking.number_of_seats
+                booking.number_of_seats = int(data['seats'])
+                booking.status = data["status"]
+                booking.save()
+                
+                messages.success(
+                    request,
+                    f'Booking updated successfully. Seats changed from {old_seats} to {booking.number_of_seats}.'
+                )
+
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Booking updated successfully',
+                'data': {
+                    'id': booking.id,
+                    'workshop_id': booking.workshop.id,
+                    'seats': booking.number_of_seats,
+                }
+            })
+
+        except json.JSONDecodeError:
+            messages.error(request, 'Invalid JSON data provided.')
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Invalid JSON data'
+            }, status=400)
+
+        except ValueError as e:
+            messages.error(request, str(e))
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=400)
+
+        except PermissionDenied as e:
+            messages.error(request, str(e))
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=403)
+
+        except Exception as e:
+            messages.error(request, 'An unexpected error occurred while updating the booking.')
+            return JsonResponse({
+                'status': 'error',
+                'message': 'An error occurred while updating the booking'
+            }, status=500)

@@ -63,6 +63,7 @@
                     {% if user.is_superuser %}
                     <th>Customer</th>
                     {% endif %}
+                    <th>Seats</th>
                     <th>Date</th>
                     <th>Status</th>
                     <th>Actions</th>
@@ -75,10 +76,11 @@
                         {% if user.is_superuser %}
                         <td>{{booking.user.get_full_name|default:"User"}}</td>
                         {% endif %}
+                        <td>{{booking.number_of_seats}}</td>
                         <td>{{booking.booking_date|date:"M d, Y"}}</td>
                         <td><span class="status status-{{booking.status}}">{{booking.get_status_display}}</span></td>
                         <td>
-                            <button class="action-btn"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn" onclick="openBookingModal({{booking.id}})"><i class="fas fa-edit"></i></button>
                             <form method="post" action="{% url 'candle:delete_bookings' booking.id %}" class="delete-form">
                                 {% csrf_token %}
                                 <button type="submit" class="action-btn">
@@ -94,4 +96,5 @@
         
     </div>
 </main>
+
 {% endblock content %}

@@ -1,0 +1,43 @@
+<div class="modal" id="bookingModal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeBookingModal()">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-header">
+            <h2 class="modal-title">Edit Your Booking</h2>
+            <p>Update your seats or booking status</p>
+        </div>
+        <form class="booking-form" id="bookingForm" method="POST" action="{% url 'candle:update_bookings' %}">
+            {% csrf_token %}
+            <input type="hidden" name="bookingId" id="bookingId">
+            
+            <div class="form-group">
+                <label for="seats">Number of Seats (max 10)</label>
+                <input
+                    type="number"
+                    id="seats"
+                    name="seats"
+                    min="1"
+                    max="10"
+                    required
+                    placeholder="Enter number of seats"
+                    oninput="validateSeats(this)"
+                >
+                <small class="form-hint">Please enter a number between 1 and 10</small>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Booking Status</label>
+                <select id="status" name="status" required>
+                    <option value="pending">Pending</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-check"></i> Update Booking
+            </button>
+        </form>
+    </div>
+</div>

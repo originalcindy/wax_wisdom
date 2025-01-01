@@ -144,10 +144,7 @@ document.getElementById('bookingForm').addEventListener('submit', async function
         window.location.reload();
     } catch (error) {
         console.error('Error booking seats:', error);
-    } finally {
-        submitButton.disabled = false;
-        submitButton.innerHTML = '<i class="fas fa-check"></i> Confirm Booking';
-    }
+    } 
 });
 
 // close modal when clicking outside

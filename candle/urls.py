@@ -2,13 +2,14 @@ from django.urls import path,include
 from .views import (
     HomeView,CandleLoginView,CandleSignUpView,CandleLogoutView,
     AboutView,BlogListView,WorkshopListView,BlogDetail,
-    BookingCreateView,BookingDeleteView
+    BookingCreateView,BookingDeleteView,BookingUpdateView
 )
 
 app_name = "candle"
 
 urlpatterns = [
     path("dashboard/",include("candle.dashboard_urls")),
+    path("bookings/update/",BookingUpdateView.as_view(),name="update_bookings"),
     path("bookings/<int:pk>/delete/",BookingDeleteView.as_view(),name="delete_bookings"),
     path('bookings/create/',BookingCreateView.as_view(), name='create_bookings'),
     path('blog/<int:pk>/', BlogDetail.as_view(), name='blog_detail'),

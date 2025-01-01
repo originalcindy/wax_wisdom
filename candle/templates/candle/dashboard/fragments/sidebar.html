@@ -14,12 +14,14 @@
                 <span>Dashboard</span>
             </a>
         </li>
+        {% if user.is_superuser %}
         <li class="nav-item">
             <a href="#" class="nav-link">
                 <i class="fas fa-calendar-alt"></i>
                 <span>Workshops</span>
             </a>
         </li>
+        {% endif %}
         <li class="nav-item">
             <a href="#" class="nav-link">
                 <i class="fas fa-blog"></i>
