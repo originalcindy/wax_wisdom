@@ -1,0 +1,51 @@
+{% extends 'candle/dashboard/base.html' %}
+{% block content %}
+ <main class="main-content">
+    <div class="page-header">
+        <h1 class="page-title">Blog Posts</h1>
+        <button class="btn btn-primary" onclick="openModal('blog')">
+            <i class="fas fa-plus"></i> Add New Post
+        </button>
+    </div>
+
+    <div class="blog-grid" id="blogGrid">
+        {% if blog_posts %}
+        <div class="blog-grid" id="blogGrid">
+            {% for blog in blog_posts %}
+                <div class="blog-card">
+                    <div class="blog-image-container">
+                        {% if blog.thumbnail %}
+                            <img src="{{blog.thumbnail.url}}" alt="{{blog.title}}" class="blog-image">
+                        {% endif %}
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">{{blog.title}}</h3>
+                        <div class="blog-excerpt">{{blog.content|striptags|truncatewords:20}}</div>
+                        <div class="blog-meta">
+                            <span>{{blog.published_date|date:"M d, Y"}} • {{blog.author.get_full_name|default:"User"}}</span>
+                            <div class="blog-actions">
+                                <button class="action-btn" onclick="openModal('blog', ${post.id})">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <form method="post" action="{% url 'candle:delete_blogs' blog.id %}" class="delete-form">
+                                    {% csrf_token %}
+                                    <button type="submit" class="action-btn">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% else %}
+            <div class="empty-state">
+                <i class="fas fa-newspaper"></i>
+                <p>No Blog Posts Yet</p>
+                <span>Create your first blog post by clicking the 'Add New Post' button above</span>
+            </div>
+        {% endif %}
+    </div>
+</main>
+{% endblock content %}

@@ -5,7 +5,7 @@ from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import CreateView,ListView,DetailView,DeleteView,UpdateView
+from django.views.generic import CreateView,ListView,DetailView,DeleteView
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import ValidationError,PermissionDenied
 from django.contrib import messages
@@ -250,3 +250,31 @@ class BookingUpdateView(LoginRequiredMixin, View):
                 'status': 'error',
                 'message': 'An error occurred while updating the booking'
             }, status=500)
+
+class DashboardBlogView(LoginRequiredMixin,TemplateView):
+    template_name = "candle/dashboard/blogs.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+
+        if user.is_superuser:
+            context['blog_posts'] = Blogpost.objects.all()
+        else:
+            context['blog_posts'] = Blogpost.objects.filter(author=user)
+
+        return context
+    
+class BlogDeleteView(LoginRequiredMixin,SuccessMessageMixin, DeleteView):
+    model = Blogpost
+    success_url = reverse_lazy('candle:dashboard_blogs')
+    success_message = "Blog was deleted successfully."
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if not (obj.author == self.request.user or self.request.user.is_superuser):
+            raise PermissionDenied("You don't have permission to delete this booking.")
+        return obj
+    
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
