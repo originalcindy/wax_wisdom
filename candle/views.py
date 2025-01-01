@@ -5,9 +5,9 @@ from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import CreateView,ListView,DetailView
+from django.views.generic import CreateView,ListView,DetailView,DeleteView
 from django.shortcuts import get_object_or_404
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError,PermissionDenied
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.contrib.auth import login
@@ -172,3 +172,17 @@ class DashboardView(LoginRequiredMixin,TemplateView):
             context['average_rating'] = Review.get_average_rating(user=user) 
 
         return context
+
+class BookingDeleteView(LoginRequiredMixin,SuccessMessageMixin, DeleteView):
+    model = Booking
+    success_url = reverse_lazy('candle:dashboard')
+    success_message = "Booking was deleted successfully."
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if not (obj.user == self.request.user or self.request.user.is_superuser):
+            raise PermissionDenied("You don't have permission to delete this booking.")
+        return obj
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super().delete(request, *args, **kwargs)

@@ -371,3 +371,149 @@ td {
     font-size: 0.9rem;
     opacity: 0.7;
 }
+
+.delete-form {
+    display: inline; 
+}
+/* Message Notifications */
+.messages-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1100;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+    width: calc(100% - 40px);
+}
+
+.message {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    animation: slideIn 0.3s ease forwards;
+    position: relative;
+    overflow: hidden;
+}
+
+.message::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+}
+
+.message-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-dark);
+}
+
+.message-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.close-message {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.close-message:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--color-dark);
+}
+
+/* Message Types */
+.message.success {
+    border: 1px solid rgba(72, 187, 120, 0.2);
+}
+
+.message.success::before {
+    background: #48bb78;
+}
+
+.message.success .message-icon {
+    color: #48bb78;
+}
+
+.message.error {
+    border: 1px solid rgba(245, 101, 101, 0.2);
+}
+
+.message.error::before {
+    background: #f56565;
+}
+
+.message.error .message-icon {
+    color: #f56565;
+}
+
+.message.warning {
+    border: 1px solid rgba(237, 137, 54, 0.2);
+}
+
+.message.warning::before {
+    background: #ed8936;
+}
+
+.message.warning .message-icon {
+    color: #ed8936;
+}
+
+.message.info {
+    border: 1px solid rgba(66, 153, 225, 0.2);
+}
+
+.message.info::before {
+    background: #4299e1;
+}
+
+.message.info .message-icon {
+    color: #4299e1;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Auto dismiss animation */
+.message {
+    animation: slideIn 0.3s ease forwards, fadeOut 0.3s ease forwards 5s;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}

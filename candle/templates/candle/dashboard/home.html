@@ -79,7 +79,12 @@
                         <td><span class="status status-{{booking.status}}">{{booking.get_status_display}}</span></td>
                         <td>
                             <button class="action-btn"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn"><i class="fas fa-trash"></i></button>
+                            <form method="post" action="{% url 'candle:delete_bookings' booking.id %}" class="delete-form">
+                                {% csrf_token %}
+                                <button type="submit" class="action-btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 {% endfor %}
