@@ -1,0 +1,24 @@
+
+{% if messages %}
+<div class="messages-container">
+    {% for message in messages %}
+    <div class="message {{ message.tags }}" role="alert">
+        <div class="message-content">
+            <i class="message-icon fas 
+                {% if message.tags == 'success' %}fa-check-circle
+                {% elif message.tags == 'error' %}fa-times-circle
+                {% elif message.tags == 'warning' %}fa-exclamation-circle
+                {% elif message.tags == 'info' %}fa-info-circle
+                {% endif %}">
+            </i>
+            <span>{{ message }}</span>
+        </div>
+        <button onclick="this.parentElement.remove()" class="close-message">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% block content %}
+{% endblock content %}

@@ -1,0 +1,68 @@
+{% load static %}
+{% load workshop_tags %}
+<article class="workshop-card">
+   <div class="workshop-image">
+      {% if workshop.thumbnail %}
+      <img src="{{workshop.thumbnail.url}}" alt="{{workshop.title}}">
+      {% else %}
+      <img src="{% static 'candle/images/workshop-default.png' %}" alt="{{workshop.title}}">
+      {% endif %}
+      <div class="workshop-date-badge">
+         <span class="date-day">{{workshop.date|date:"d"}}</span>
+         <span class="date-month">{{workshop.date|date:"M"}}</span>
+      </div>
+   </div>
+   <div class="workshop-content">
+      <h3 class="workshop-title">{{workshop.title}}</h3>
+      <p class="workshop-description">{{workshop.description}}</p>
+      {% with avg_rating=workshop.get_average_rating|floatformat:"0" %}
+        <div class="workshop-rating">
+            <div class="stars">
+                {% for i in ""|ljust:avg_rating %}
+                    <i class="fas fa-star"></i>
+                {% endfor %}
+            </div>
+            <span class="rating-count">({{workshop.get_average_rating}})</span>
+        </div>
+      {% endwith %}
+    
+      <div class="workshop-meta">
+         <span class="meta-item">
+         <i class="fas fa-clock"></i>
+         {{workshop.formatted_duration}} Hours
+         </span>
+         <span class="meta-item">
+         <i class="fas fa-users"></i>
+         {{workshop.get_remaining_seats}} Spots Left
+         </span>
+      </div>
+      <div class="workshop-footer">
+         <span class="workshop-price">${{workshop.price}}</span>
+         {% if workshop.is_active %}
+                <span class="book-now disabled">
+                    <i class="fas fa-calendar-times"></i>
+                    Workshop Ended
+                </span>
+        {% else %}
+            {% if user.is_authenticated %}
+                {% if workshop|has_booked:user %}
+                    <a href="" class="book-now">
+                        <i class="fas fa-eye"></i>
+                        View My Booking
+                    </a>
+                {% else %}
+                    <a href="#" class="book-now" onclick="openBookingModal('{{workshop.id}}')">
+                        <i class="fas fa-bookmark"></i>
+                        Book Now
+                    </a>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'candle:login' %}" class="book-now">
+                    <i class="fas fa-bookmark"></i>
+                    Login to Book
+                </a>
+            {% endif %}
+        {% endif %}
+      </div>
+   </div>
+</article>

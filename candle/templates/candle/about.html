@@ -1,0 +1,50 @@
+{% extends "candle/base.html" %}
+{% load static %}
+{% block content %}
+{% include 'candle/fragments/header.html' %}
+    <section class="hero" style="min-height: 60vh;">
+        <div class="hero-content">
+            <span class="hero-subtitle">Our Story</span>
+            <h1 class="hero-title">Crafting Light & Legacy</h1>
+            <p class="hero-description">Discover the passion and artistry behind <strong>{{site_name}}</strong>, where each candle tells a story of tradition and innovation.</p>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="{% static 'candle/images/background.jpg' %}" alt="Candlemaking About">
+            </div>
+            <div class="about-content">
+                <span class="about-subtitle">Our Journey</span>
+                <h2 class="about-title">Illuminating Spaces Since 2015</h2>
+                <p class="about-text">Founded in a small workshop with a passion for artisanal craftsmanship, <strong>{{site_name}}</strong> has grown into a community of dedicated candlemakers who believe in the transformative power of light and scent. Our journey began with a simple mission: to create candles that not only illuminate spaces but also inspire moments of joy, reflection, and connection.</p>
+                <p class="about-text">Today, we continue to handcraft each candle using traditional methods while embracing innovative techniques and sustainable practices. Our workshop has become a place where creativity flourishes and where the ancient art of candlemaking meets contemporary design.</p>
+            </div>
+        </div>
+
+        <div class="values-grid">
+            <div class="value-card">
+                <i class="fas fa-hand-holding-heart value-icon"></i>
+                <h3 class="value-title">Artisanal Craftsmanship</h3>
+                <p>Every candle is handcrafted with attention to detail and love for the art of candlemaking.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-leaf value-icon"></i>
+                <h3 class="value-title">Sustainability</h3>
+                <p>We're committed to eco-friendly practices and use sustainable materials in our products.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-users value-icon"></i>
+                <h3 class="value-title">Community</h3>
+                <p>Building connections through workshops and shared experiences in candlemaking.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-star value-icon"></i>
+                <h3 class="value-title">Quality</h3>
+                <p>Using premium ingredients and maintaining high standards in every creation.</p>
+            </div>
+        </div>
+    </section>
+{% include 'candle/fragments/footer.html' %}
+{% endblock content %}

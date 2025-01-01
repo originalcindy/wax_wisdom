@@ -1,0 +1,45 @@
+{% extends "candle/base.html" %}
+{% load static %}
+{% block content %}
+{% include 'candle/fragments/header.html' %}
+<section class="hero">
+    <div class="hero-content">
+        <span class="hero-subtitle">Welcome to {{site_name}}</span>
+        <h1 class="hero-title">Craft Your Perfect Ambiance</h1>
+        <p class="hero-description">{{site_description}}</p>
+        <div class="cta-buttons">
+            <a href="#workshops" class="cta-primary">
+                <i class="fas fa-calendar-alt"></i>
+                Explore Workshops
+            </a>
+        </div>
+    </div>
+</section>
+
+<section id="workshops" class="workshops">
+    <div class="section-title">
+        <span class="title-label">Join Our Classes</span>
+        <h2 class="title-main">Upcoming Workshops</h2>
+        <p>Discover the art of candle making through our expert-led workshops</p>
+    </div>
+    <div class="workshop-grid">
+        {% for workshop in latest_workshops %}
+        {% include 'candle/fragments/workshop.html' %}
+        {% endfor %}
+    </div>
+</section>
+
+<section id="blog" class="blog">
+    <div class="section-title">
+        <span class="title-label">Latest Updates</span>
+        <h2 class="title-main">From Our Blog</h2>
+        <p>Discover tips, techniques, and inspiration from our candle making experts</p>
+    </div>
+    <div class="blog-grid">
+        {% for blog in latest_blogs %}
+        {% include 'candle/fragments/blog.html' %}
+        {% endfor %}
+    </div>
+</section>
+{% include 'candle/fragments/footer.html' %}
+{% endblock content %}

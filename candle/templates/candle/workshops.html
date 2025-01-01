@@ -1,0 +1,99 @@
+{% extends 'candle/base.html' %}
+{% load static %}
+{% block head %}
+<style>
+ body {
+   line-height: 1.6;
+   min-height: 100vh;
+   display: flex;
+   flex-direction: column;
+ }
+ header {
+   background-color: var(--color-dark);
+ }
+ main {
+   padding-top: 5rem;
+   flex: 1;
+   background: linear-gradient(to bottom, #fff, var(--color-light));
+ }
+ /* workshop grid */
+ .workshops-container {
+   max-width: 1200px;
+   margin: 0 auto;
+   padding: 0 1rem;
+ }
+ .workshops-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+   gap: 2rem;
+   margin-bottom: 3rem;
+ }
+ /* Pagination styles */
+ .pagination {
+   display: flex;
+   justify-content: center;
+   gap: 0.5rem;
+   margin: 2rem 0;
+ }
+ .page-item {
+   list-style: none;
+ }
+ .page-link {
+   padding: 0.5rem 1rem;
+   border: 1px solid var(--color-dark);
+   color: var(--color-dark);
+   text-decoration: none;
+   border-radius: 4px;
+ }
+ .page-item.active .page-link {
+   background-color: var(--color-dark);
+   color: white;
+ }
+</style>
+{% endblock head %}
+
+{% block content %}
+{% include 'candle/fragments/header.html' %}
+<main>
+  <div class="page-header">
+    <h1 class="page-title">Our Workshops</h1>
+    <p>Discover the art of candle making through our expert-led workshops</p>
+  </div>
+  <div class="workshops-container">
+    <div class="workshops-grid">
+      {% for workshop in workshops %}
+        {% include 'candle/fragments/workshop.html' %}
+      {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+        </li>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <li class="page-item active">
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+          </li>
+        {% else %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+        </li>
+      {% endif %}
+    </ul>
+    {% endif %}
+  </div>
+</main>
+{% include 'candle/fragments/footer.html' %}
+{% endblock content %}

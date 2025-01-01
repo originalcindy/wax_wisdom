@@ -1,0 +1,92 @@
+{% extends 'candle/dashboard/base.html' %}
+{% block content %}
+<main class="main-content">
+    <div class="page-header">
+        <h1 class="page-title">Dashboard Overview</h1>
+    </div>
+    <div class="dashboard-grid">
+        {% if user.is_superuser %}
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+            </div>
+            <div class="stat-value">{{active_workshops}}</div>
+            <div class="stat-label">Active Workshops</div>
+        </div>
+        {% endif %}
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+            </div>
+            <div class="stat-value">{{total_bookings}}</div>
+            <div class="stat-label">{% if not user.is_superuser %}My {% endif %}Total Bookings</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-icon">
+                    <i class="fas fa-blog"></i>
+                </div>
+            </div>
+            <div class="stat-value">{{total_blog_posts}}</div>
+            <div class="stat-label">{% if not user.is_superuser %}My {% endif %} Blog Posts</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+            <div class="stat-value">{{average_rating}}</div>
+            <div class="stat-label">AVG Ratings{% if not user.is_superuser %} I’ve Given{% endif %}</div>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <div class="table-header">
+            <h2>Recent Bookings</h2>
+        </div>
+        {% if not recent_bookings %}
+        <div class="empty-state">
+            <i class="fas fa-calendar-xmark"></i>
+            <p>No Recent Bookings</p>
+            <span>New bookings will appear here</span>
+        </div>
+        {% else %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Workshop</th>
+                    {% if user.is_superuser %}
+                    <th>Customer</th>
+                    {% endif %}
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in recent_bookings %}
+                    <tr>
+                        <td>{{booking.workshop.title}}</td>
+                        {% if user.is_superuser %}
+                        <td>{{booking.user.get_full_name|default:"User"}}</td>
+                        {% endif %}
+                        <td>{{booking.booking_date|date:"M d, Y"}}</td>
+                        <td><span class="status status-{{booking.status}}">{{booking.get_status_display}}</span></td>
+                        <td>
+                            <button class="action-btn"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        
+    </div>
+</main>
+{% endblock content %}

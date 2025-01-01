@@ -1,0 +1,162 @@
+{% extends "candle/base.html" %}
+
+{% block content %}
+<main class="register-container">
+    <div class="register-card">
+        <div class="register-header">
+            <h1>Create Account</h1>
+            <p>Join our community of candle enthusiasts</p>
+        </div>
+
+        {% if form.non_field_errors %}
+        <div class="non-field-errors">
+            {% for error in form.non_field_errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form class="register-form" method="post">
+            {% csrf_token %}
+            
+            <div class="form-row">
+                <div class="form-group {% if form.first_name.errors %}form-error{% endif %}">
+                    <label for="firstName">First Name</label>
+                    <div class="input-container">
+                        <i class="fas fa-user"></i>
+                        {{ form.first_name }}
+                        {% if form.first_name.errors %}
+                            {% for error in form.first_name.errors %}
+                                <div class="error-message">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.last_name.errors %}form-error{% endif %}">
+                    <label for="lastName">Last Name</label>
+                    <div class="input-container">
+                        <i class="fas fa-user"></i>
+                        {{ form.last_name }}
+                        {% if form.last_name.errors %}
+                            {% for error in form.last_name.errors %}
+                                <div class="error-message">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group {% if form.username.errors %}form-error{% endif %}">
+                <label for="username">Username</label>
+                <div class="input-container">
+                    <i class="fas fa-user"></i>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        {% for error in form.username.errors %}
+                            <div class="error-message">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group {% if form.email.errors %}form-error{% endif %}">
+                <label for="email">Email Address</label>
+                <div class="input-container">
+                    <i class="fas fa-envelope"></i>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        {% for error in form.email.errors %}
+                            <div class="error-message">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group {% if form.password1.errors %}form-error{% endif %}">
+                <label for="password">Password</label>
+                <div class="input-container">
+                    <i class="fas fa-lock"></i>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        {% for error in form.password1.errors %}
+                            <div class="error-message">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="password-strength">
+                    <div class="strength-meter"></div>
+                </div>
+                <div class="password-requirements">
+                    Must contain 8+ characters with uppercase, lowercase, number, and special character
+                </div>
+            </div>
+
+            <div class="form-group {% if form.password2.errors %}form-error{% endif %}">
+                <label for="confirmPassword">Confirm Password</label>
+                <div class="input-container">
+                    <i class="fas fa-lock"></i>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                        {% for error in form.password2.errors %}
+                            <div class="error-message">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="terms">
+                {{ form.terms }}
+                <label for="terms">
+                    I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                </label>
+                {% if form.terms.errors %}
+                    {% for error in form.terms.errors %}
+                        <div class="error-message">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <button type="submit" class="register-btn">
+                <i class="fas fa-user-plus"></i>
+                Create Account
+            </button>
+        </form>
+
+        <div class="login-link">
+            Already have an account? <a href="{% url 'candle:login' %}">Sign in</a>
+        </div>
+    </div>
+</main>
+
+<script>
+    // Password strength checker
+    document.getElementById('password').addEventListener('input', function(e) {
+        const password = e.target.value;
+        const strengthMeter = document.querySelector('.strength-meter');
+        
+        let strength = 0;
+        if(password.length >= 8) strength += 1;
+        if(/[A-Z]/.test(password)) strength += 1;
+        if(/[0-9]/.test(password)) strength += 1;
+        if(/[^A-Za-z0-9]/.test(password)) strength += 1;
+
+        strengthMeter.className = 'strength-meter';
+        if(strength >= 4) strengthMeter.classList.add('strong');
+        else if(strength >= 2) strengthMeter.classList.add('medium');
+        else if(strength >= 1) strengthMeter.classList.add('weak');
+    });
+
+    // Password match validation
+    document.getElementById('confirmPassword').addEventListener('input', function(e) {
+        const password = document.getElementById('password').value;
+        const confirmPassword = e.target.value;
+        
+        if(password !== confirmPassword) {
+            e.target.setCustomValidity('Passwords do not match');
+        } else {
+            e.target.setCustomValidity('');
+        }
+    });
+</script>
+{% endblock content %}

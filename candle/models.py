@@ -144,6 +144,13 @@ class CandleWorkshop(models.Model):
             status__in=['confirmed', 'pending']
         ).exists()
     
+    def is_active(self):
+        """
+        check if the workshop is still active.
+        """
+        
+        return self.date < timezone.now().date()
+    
     class Meta:
         ordering = ("-date",)
     
@@ -163,17 +170,16 @@ class Review(models.Model):
     def __str__(self):
         return f"Review by {self.user.username} for {self.workshop.title}"
     
-    def get_average_rating(self, user=None):
+    @classmethod
+    def get_average_rating(cls, user=None):
         """
         calculate average rating from reviews.
         """
-        reviews = self.objects.all()
+        reviews = cls.objects.all()
         if user:
             reviews = reviews.filter(user=user)
-        
-        avg_rating = reviews.aggregate(Avg('rating'))['rating__avg']
+        avg_rating = reviews.aggregate(models.Avg('rating'))['rating__avg']
         return round(avg_rating, 1) if avg_rating else 0
-
 
 class Booking(models.Model):
     STATUS_CHOICES = [

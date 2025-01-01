@@ -1,0 +1,57 @@
+{% extends "candle/base.html" %}
+
+{% block content %}
+<main class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <h1>Welcome Back</h1>
+            <p>Enter your credentials to access your account</p>
+        </div>
+
+        {% if form.non_field_errors %}
+        <div class="non-field-errors">
+            {% for error in form.non_field_errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form class="login-form" method="post" action="{% url 'candle:login' %}">
+            {% csrf_token %}
+            
+            <div class="form-group {% if form.username.errors %}form-error{% endif %}">
+                <i class="fas fa-envelope"></i>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    {% for error in form.username.errors %}
+                        <div class="error-message">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="form-group {% if form.password.errors %}form-error{% endif %}">
+                <i class="fas fa-lock"></i>
+                {{ form.password }}
+                {% if form.password.errors %}
+                    {% for error in form.password.errors %}
+                        <div class="error-message">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i>
+                Sign In
+            </button>
+
+            {% if next %}
+                <input type="hidden" name="next" value="{{ next }}">
+            {% endif %}
+        </form>
+
+        <div class="register-link">
+            Don't have an account? <a href="{% url 'candle:signup' %}">Create one</a>
+        </div>
+    </div>
+</main>
+{% endblock content %}

@@ -160,14 +160,15 @@ class DashboardView(LoginRequiredMixin,TemplateView):
         user = self.request.user
 
         if user.is_superuser:
-            context['active_workshops'] = 12  
-            context['total_bookings'] = Booking.objects.all().count()
-            context['blog_posts'] = Blogpost.objects.all().count()
-            context['average_rating'] = Review.get
+            context['recent_bookings'] = Booking.objects.all()[:6]
+            context['active_workshops'] = CandleWorkshop.objects.count()
+            context['total_bookings'] = Booking.objects.count()
+            context['total_blog_posts'] = Blogpost.objects.count()
+            context['average_rating'] = Review.get_average_rating() 
         else:
-            context['active_workshops'] = 12  
+            context['recent_bookings'] = Booking.objects.filter(user=user)[:6]
             context['total_bookings'] = Booking.objects.filter(user=user).count()
-            context['blog_posts'] = Blogpost.objects.filter(author=user).count()
-            context['average_rating'] = 4.8  
+            context['total_blog_posts'] = Blogpost.objects.filter(author=user).count()
+            context['average_rating'] = Review.get_average_rating(user=user) 
 
         return context
