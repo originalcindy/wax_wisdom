@@ -230,7 +230,7 @@
             {{blog.content|safe}}
         </div>
     </article>
-
+    {% if related_blogs %}
     <section class="related-posts">
         <h2 class="related-title">Related Articles</h2>
         <div class="related-grid">
@@ -250,6 +250,7 @@
             {% endfor %}
         </div>
     </section>
+    {% endif %}
 </main>
 {% include "candle/fragments/footer.html" %}
 {% endblock content %}
