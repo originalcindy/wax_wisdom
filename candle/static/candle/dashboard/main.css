@@ -846,3 +846,18 @@ input[type="number"]::-webkit-outer-spin-button {
         font-size: 0.8rem;
     }
 }
+
+textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+}
+
+textarea:focus {
+    border-color: var(--color-magenta);
+    outline: none;
+}

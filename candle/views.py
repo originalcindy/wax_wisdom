@@ -390,3 +390,35 @@ class ReviewCreateView(LoginRequiredMixin, View):
                 'status': 'error',
                 'message': error_message
             }, status=500)
+        
+class DashboardReviewView(LoginRequiredMixin, ListView):
+    model = Review
+    template_name = "candle/dashboard/reviews.html"
+    context_object_name = 'reviews'
+    paginate_by = 10
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_superuser:
+            return Review.objects.all().order_by('-created_at')
+        return Review.objects.filter(user=user).order_by('-created_at')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["active_menu"] = "reviews"
+        return context
+    
+class ReviewDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = Review
+    success_url = reverse_lazy('candle:dashboard_reviews')
+    success_message = "Review was deleted successfully."
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if not (obj.user == self.request.user or self.request.user.is_superuser):
+            raise PermissionDenied("You don't have permission to delete this review.")
+        return obj
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super().delete(request, *args, **kwargs)
