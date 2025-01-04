@@ -159,7 +159,7 @@ class DashboardView(LoginRequiredMixin,TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-
+        context["active_menu"] = "dashboard"
         if user.is_superuser:
             context['recent_bookings'] = Booking.objects.all()[:6]
             context['active_workshops'] = CandleWorkshop.objects.count()
@@ -256,18 +256,19 @@ class BookingUpdateView(LoginRequiredMixin, View):
                 'message': 'An error occurred while updating the booking'
             }, status=500)
 
-class DashboardBlogView(LoginRequiredMixin,TemplateView):
+class DashboardBlogView(LoginRequiredMixin, ListView):
     template_name = "candle/dashboard/blogs.html"
-
+    context_object_name = 'blog_posts'
+    paginate_by = 10 
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_superuser:
+            return Blogpost.objects.all()
+        return Blogpost.objects.filter(author=user)
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = self.request.user
-
-        if user.is_superuser:
-            context['blog_posts'] = Blogpost.objects.all()
-        else:
-            context['blog_posts'] = Blogpost.objects.filter(author=user)
-
+        context["active_menu"] = "blogs"
         return context
     
 class BlogDeleteView(LoginRequiredMixin,SuccessMessageMixin, DeleteView):
@@ -299,7 +300,10 @@ class DashboardBookingView(LoginRequiredMixin,ListView):
         if user.is_superuser:
             return Booking.objects.all().order_by('-booking_date')
         return Booking.objects.filter(user=user).order_by('-booking_date')
-    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["active_menu"] = "bookings"
+        return context
 class ReviewCreateView(LoginRequiredMixin, View):
     http_method_names = ['post']
 

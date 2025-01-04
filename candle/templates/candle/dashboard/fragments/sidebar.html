@@ -5,11 +5,11 @@
 <aside class="sidebar">
     <div class="logo">
         <i class="fas fa-fire"></i>
-        <span>Fictious Candle</span>
+        <span>{{site_name}}</span>
     </div>
     <ul class="nav-menu">
         <li class="nav-item">
-            <a href="{% url 'candle:dashboard' %}" class="nav-link active">
+            <a href="{% url 'candle:dashboard' %}" class="nav-link {% if active_menu == 'dashboard'%} active {% endif %}">
                 <i class="fas fa-th-large"></i>
                 <span>Dashboard</span>
             </a>
@@ -22,14 +22,14 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{% url 'candle:dashboard_blogs' %}" class="nav-link">
+            <a href="{% url 'candle:dashboard_blogs' %}" class="nav-link {% if active_menu == 'blogs'%} active {% endif %}">
                 <i class="fas fa-blog"></i>
                 <span>{% if not user.is_superuser %}My {% endif %}Blog Posts</span>
             </a>
         </li>
         {% endif %}
         <li class="nav-item">
-            <a href="{% url 'candle:dashboard_bookings' %}" class="nav-link">
+            <a href="{% url 'candle:dashboard_bookings' %}" class="nav-link {% if active_menu == 'bookings'%} active {% endif %}">
                 <i class="fas fa-book"></i>
                 <span>{% if not user.is_superuser %}My {% endif %}Bookings</span>
             </a>
