@@ -4,3 +4,4 @@ media/
 db.sqlit3
 migrations/
 staticfiles/
+.DS_Store
