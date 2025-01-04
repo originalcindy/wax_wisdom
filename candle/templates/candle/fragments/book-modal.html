@@ -1,0 +1,32 @@
+<div class="modal" id="bookingModal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeBookingModal()">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-header">
+            <h2 class="modal-title">Book Your Seats</h2>
+            <p>Select the number of seats you'd like to reserve</p>
+        </div>
+        <form class="booking-form" id="bookingForm" method="POST" action="{% url 'candle:create_bookings' %}">
+            {% csrf_token %}
+            <input type="hidden" id="workshopId" name="workshop_id">
+            <div class="form-group">
+                <label for="seats">Number of Seats (max 10)</label>
+                <input 
+                    type="number" 
+                    id="seats" 
+                    name="seats" 
+                    min="1" 
+                    max="10" 
+                    required
+                    placeholder="Enter number of seats"
+                    oninput="validateSeats(this)"
+                >
+                <small class="form-hint">Please enter a number between 1 and 10</small>
+            </div>
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-check"></i> Confirm Booking
+            </button>
+        </form>
+    </div>
+</div>

@@ -153,3 +153,91 @@ document.getElementById('bookingModal').addEventListener('click', function(event
         closeBookingModal();
     }
 });
+
+function validateRating(input) {
+    const value = parseInt(input.value);
+    if (value < 1) {
+        input.value = 1;
+    } else if (value > 5) {
+        input.value = 5;
+    }
+}
+// Rating Modal Functions
+function openRatingModal(workshopId) {
+    const modal = document.getElementById('ratingModal');
+    const workshopIdInput = document.getElementById('workshopRatingId');
+    modal.classList.add('active');
+    workshopIdInput.value = workshopId;
+    document.body.style.overflow = 'hidden';
+}
+
+function closeRatingModal() {
+    const modal = document.getElementById('ratingModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+// Initialize rating stars functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const ratingStars = document.querySelectorAll('.rating-stars i');
+    const selectedRating = document.getElementById('selectedRating');
+
+    ratingStars.forEach(star => {
+        star.addEventListener('mouseover', function() {
+            const rating = this.dataset.rating;
+            updateStars(ratingStars, rating);
+        });
+
+        star.addEventListener('mouseleave', function() {
+            const rating = selectedRating.value || 0;
+            updateStars(ratingStars, rating);
+        });
+
+        star.addEventListener('click', function() {
+            const rating = this.dataset.rating;
+            selectedRating.value = rating;
+            updateStars(ratingStars, rating);
+        });
+    });
+});
+
+function updateStars(stars, rating) {
+    stars.forEach(star => {
+        if (star.dataset.rating <= rating) {
+            star.classList.remove('far');
+            star.classList.add('fas');
+        } else {
+            star.classList.remove('fas');
+            star.classList.add('far');
+        }
+    });
+}
+
+// Handle form submission
+document.getElementById('ratingForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const submitButton = this.querySelector('.submit-btn');
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+    try {
+        const formData = new FormData(this);
+        const csrfToken = formData.get('csrfmiddlewaretoken');
+        const response = await fetch(this.action, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                workshop_id: formData.get('workshop_id'),
+                rating: formData.get('rating'),
+                feedback: formData.get('feedback')
+            })
+        });
+    } catch (error) {
+        console.error('Error submitting rating:', error);
+    } finally {
+        window.location.reload();
+    }
+});

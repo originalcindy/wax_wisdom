@@ -149,7 +149,7 @@ class CandleWorkshop(models.Model):
         check if the workshop is still active.
         """
         
-        return self.date < timezone.now().date()
+        return timezone.now().date() <= self.date
     
     class Meta:
         ordering = ("-date",)

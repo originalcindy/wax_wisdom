@@ -19,6 +19,7 @@ from .forms import LoginForm,SignUpForm
 
 class HomeView(TemplateView):
     template_name = 'candle/home.html'
+    
 
 class CandleLoginView(SuccessMessageMixin, LoginView):
     form_class = LoginForm
@@ -299,4 +300,89 @@ class DashboardBookingView(LoginRequiredMixin,ListView):
             return Booking.objects.all().order_by('-booking_date')
         return Booking.objects.filter(user=user).order_by('-booking_date')
     
+class ReviewCreateView(LoginRequiredMixin, View):
+    http_method_names = ['post']
+
+    def handle_no_permission(self):
+        messages.error(self.request, 'Please login to rate the workshop')
+        return JsonResponse({
+            'status': 'error',
+            'message': 'Please login to rate the workshop'
+        }, status=403)
     
+
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            workshop_id = data.get('workshop_id')
+            rating = data.get('rating')
+            comment = data.get('feedback')
+
+            if not workshop_id or not rating:
+                messages.error(request, 'Workshop ID and rating are required')
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Workshop ID and rating are required'
+                }, status=400)
+
+            # validate rating range
+            try:
+                rating = int(rating)
+                if not (1 <= rating <= 5):
+                    raise ValueError('Rating must be between 1 and 5')
+            except (TypeError, ValueError):
+                messages.error(request, 'Rating must be between 1 and 5')
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Rating must be between 1 and 5'
+                }, status=400)
+
+            workshop = get_object_or_404(CandleWorkshop, id=workshop_id)
+
+            # if user has booked this workshop
+            if not Booking.objects.filter(user=request.user, workshop=workshop).exists():
+                messages.error(request, 'You can only rate workshops you have booked')
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'You can only rate workshops you have booked'
+                }, status=403)
+
+            # create or update review
+            review, created = Review.objects.update_or_create(
+                user=request.user,
+                workshop=workshop,
+                defaults={
+                    'rating': rating,
+                    'comment': comment or ''
+                }
+            )
+
+            success_message = 'Review submitted successfully' if created else 'Review updated successfully'
+            messages.success(request, success_message)
+
+            return JsonResponse({
+                'status': 'success',
+                'message': success_message,
+                'review': {
+                    'id': review.id,
+                    'rating': review.rating,
+                    'comment': review.comment,
+                    'created_at': review.created_at.isoformat(),
+                    'workshop_title': review.workshop.title
+                }
+            })
+
+        except json.JSONDecodeError:
+            messages.error(request, 'Invalid data received')
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Invalid JSON data'
+            }, status=400)
+
+        except Exception as e:
+            error_message = str(e)
+            messages.error(request, f'An error occurred: {error_message}')
+            return JsonResponse({
+                'status': 'error',
+                'message': error_message
+            }, status=500)
