@@ -32,7 +32,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOST","*").split(",")
 
 
 # Application definition
@@ -151,3 +151,4 @@ CLOUDINARY_STORAGE = {
 }
 
 # DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+CSRF_TRUSTED_ORIGINS = [f"{scheme}://{host}" for host in ALLOWED_HOSTS for scheme in ["http", "https"]]
