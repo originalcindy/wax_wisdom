@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "candle.apps.CandleConfig",
     'cloudinary',
     'cloudinary_storage',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
@@ -150,5 +151,15 @@ CLOUDINARY_STORAGE = {
     'API_SECRET':  os.getenv("CLOUD_API_SECRET"),
 }
 
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 CSRF_TRUSTED_ORIGINS = [f"{scheme}://{host}" for host in ALLOWED_HOSTS for scheme in ["http", "https"]]
+
+TINYMCE_DEFAULT_CONFIG = {
+    "height": "500px",
+    "width": "100%",
+    "menubar": "file edit view insert format tools table help",
+    "plugins": "advlist autolink lists link image charmap print preview anchor "
+               "searchreplace visualblocks code fullscreen insertdatetime media table paste code help wordcount",
+    "toolbar": "undo redo | formatselect | bold italic backcolor | alignleft aligncenter "
+               "alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+}

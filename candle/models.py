@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 import math
+from tinymce.models import HTMLField
 
 
 User = get_user_model() 
@@ -54,7 +55,7 @@ class Blogpost(models.Model):
         related_query_name='blogpost'
     )
     title = models.CharField(max_length=255)
-    content = models.TextField()
+    content = HTMLField()
     published_date = models.DateTimeField(auto_now_add=True)
     thumbnail = models.ImageField(
         upload_to='blog_thumbnails/',
