@@ -51,7 +51,7 @@
                 {% else %}
                     {% if user.is_authenticated %}
                         {% if workshop|has_booked:user %}
-                            <a href="" class="book-now">
+                            <a href="{% url 'candle:dashboard_bookings' %}" class="book-now">
                                 <i class="fas fa-eye"></i> View My Booking
                             </a>
                         {% else %}
