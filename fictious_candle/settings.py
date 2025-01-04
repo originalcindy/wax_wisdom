@@ -32,7 +32,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "candle.apps.CandleConfig",
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +142,12 @@ LOGIN_REDIRECT_URL = 'candle:home'
 LOGOUT_REDIRECT_URL = 'candle:home'
 LOGIN_URL = 'candle:login'
 LOGOUT_REDIRECT_URL = 'candle:home'
+
+# cloudinary
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv("CLOUD_NAME"),
+    'API_KEY':  os.getenv("CLOUD_API_KEY"),
+    'API_SECRET':  os.getenv("CLOUD_API_SECRET"),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
