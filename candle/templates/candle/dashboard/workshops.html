@@ -3,9 +3,9 @@
 <main class="main-content">
     <div class="page-header">
         <h1 class="page-title">Manage Workshops</h1>
-        <button class="btn btn-primary" onclick="openModal('workshop')">
+        {% comment %} <button class="btn btn-primary" onclick="openWorkshopModal()">
             <i class="fas fa-plus"></i> Add Workshop
-        </button>
+        </button> {% endcomment %}
     </div>
 
     <div class="table-container">
@@ -29,9 +29,9 @@
                             <td>${{workshop.price}}</td>
                             <td>{{workshop.get_remaining_seats}}</td>
                             <td class="action-buttons">
-                                <button class="action-btn edit-btn" onclick="editWorkshop(${workshop.id})">
+                                {% comment %} <button class="action-btn edit-btn" onclick="">
                                     <i class="fas fa-edit"></i>
-                                </button>
+                                </button> {% endcomment %}
                                 <form method="post" action="{% url 'candle:delete_workshops' workshop.id %}" class="delete-form">
                                     {% csrf_token %}
                                     <button type="submit" class="action-btn">

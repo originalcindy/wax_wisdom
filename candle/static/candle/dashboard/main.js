@@ -182,3 +182,12 @@ document.getElementById('ratingForm').addEventListener('submit', async function(
         window.location.reload();
     }
 });
+
+function openWorkshopModal() {
+    const modal = document.getElementById('workshopModal');
+    modal.style.display = 'block';
+}
+function closeModal(type) {
+    const modal = document.getElementById(`workshopModal`);
+    modal.style.display = 'none';
+}
