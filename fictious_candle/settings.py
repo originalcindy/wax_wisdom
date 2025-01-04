@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = not os.getenv("DJANGO_DEBUG", "true").lower() == "false"
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOST","*").split(",")
+ALLOWED_HOSTS = ["wax-wisdom-a6fcbf849763.herokuapp.com"] + os.getenv("ALLOWED_HOST","*").split(",")
 
 
 # Application definition
