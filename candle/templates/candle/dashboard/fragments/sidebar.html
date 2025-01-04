@@ -35,7 +35,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{% url 'candle:dashboard_reviews' %}" class="nav-link">
+            <a href="{% url 'candle:dashboard_reviews' %}" class="nav-link {% if active_menu == 'reviews'%} active {% endif %}">
                 <i class="fas fa-star"></i>
                 <span>{% if not user.is_superuser %}My {% endif %}Reviews</span>
             </a>
