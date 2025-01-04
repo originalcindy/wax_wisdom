@@ -1,0 +1,49 @@
+{% extends 'candle/dashboard/base.html' %}
+{% block content %}
+<main class="main-content">
+    <div class="page-header">
+        <h1 class="page-title">Manage Workshops</h1>
+        <button class="btn btn-primary" onclick="openModal('workshop')">
+            <i class="fas fa-plus"></i> Add Workshop
+        </button>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Duration</th>
+                    <th>Price</th>
+                    <th>Spots Left</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="workshopsTable">
+                {% for workshop in workshops %}
+                    <tr>
+                            <td>{{workshop.title}}</td>
+                            <td>{{workshop.date|date:"d M, Y"}}</td>
+                            <td>{{workshop.formatted_duration}} hours</td>
+                            <td>${{workshop.price}}</td>
+                            <td>{{workshop.get_remaining_seats}}</td>
+                            <td class="action-buttons">
+                                <button class="action-btn edit-btn" onclick="editWorkshop(${workshop.id})">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <form method="post" action="{% url 'candle:delete_workshops' workshop.id %}" class="delete-form">
+                                    {% csrf_token %}
+                                    <button type="submit" class="action-btn">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include "candle/dashboard/fragments/pagination.html" %}
+</main>
+{% endblock content %}

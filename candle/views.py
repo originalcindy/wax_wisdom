@@ -285,9 +285,24 @@ class BlogDeleteView(LoginRequiredMixin,SuccessMessageMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
 
-class DashboardWorkshopView(LoginRequiredMixin,TemplateView):
+class DashboardWorkshopView(LoginRequiredMixin,ListView):
+    model = CandleWorkshop
     template_name = "candle/dashboard/workshops.html"
+    context_object_name = 'workshops'
+    paginate_by = 10
 
+    def get_queryset(self):
+        user = self.request.user
+        # if superuser, show all workshops
+        if user.is_superuser:
+            return CandleWorkshop.objects.all().order_by('-date', '-time')
+        return CandleWorkshop.objects.filter(instructor=user).order_by('-date', '-time')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["active_menu"] = "workshops"
+        return context
+    
 class DashboardBookingView(LoginRequiredMixin,ListView):
     model = Booking
     template_name = "candle/dashboard/bookings.html"
@@ -422,3 +437,26 @@ class ReviewDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
         return super().delete(request, *args, **kwargs)
+    
+class WorkshopDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = CandleWorkshop
+    success_url = reverse_lazy('candle:dashboard_workshops')
+    success_message = "Workshop was deleted successfully."
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if not self.request.user.is_superuser:
+            raise PermissionDenied("You don't have permission to delete this workshop.")
+        return obj
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super().delete(request, *args, **kwargs)
+
+    def dispatch(self, request, *args, **kwargs):
+        # check to prevent deletion of workshops that have bookings
+        workshop = self.get_object()
+        if hasattr(workshop, 'bookings') and workshop.bookings.exists():
+            messages.error(request, "Cannot delete workshop with existing bookings.")
+            return redirect('candle:dashboard_workshops')
+        return super().dispatch(request, *args, **kwargs)
