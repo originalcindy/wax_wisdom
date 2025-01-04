@@ -150,4 +150,4 @@ CLOUDINARY_STORAGE = {
     'API_SECRET':  os.getenv("CLOUD_API_SECRET"),
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
