@@ -13,6 +13,7 @@ class Config(models.Model):
     site_name = models.CharField(max_length=255)
     site_title = models.CharField(max_length=255)
     site_description = models.TextField()
+    about_us = HTMLField(blank=True, null=True)
     facebook_url = models.URLField(blank=True, null=True)
     instagram_url = models.URLField(blank=True, null=True)
     pinterest_url = models.URLField(blank=True, null=True)
@@ -41,6 +42,7 @@ class Config(models.Model):
         return {
             'site_name': self.site_name or '',
             'site_title': self.site_title or '',
+            "about_us": self.about_us or '',
             'site_description': self.site_description or '',
             'facebook_url': self.facebook_url or '',
             'instagram_url': self.instagram_url or '',

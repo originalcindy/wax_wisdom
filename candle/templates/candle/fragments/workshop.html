@@ -36,7 +36,7 @@
             </span>
         </div>
         <div class="workshop-footer">
-            <span class="workshop-price">${{workshop.price}}</span>
+            <span class="workshop-price">£{{workshop.price}}</span>
             <div class="workshop-buttons">
                 {% if not workshop.is_active %}
                     {% if user.is_authenticated and workshop|has_booked:user %}
