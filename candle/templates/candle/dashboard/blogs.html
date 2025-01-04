@@ -1,9 +1,12 @@
 {% extends 'candle/dashboard/base.html' %}
+{% block head %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
+{% endblock head %}
 {% block content %}
  <main class="main-content">
     <div class="page-header">
         <h1 class="page-title">Blog Posts</h1>
-        <button class="btn btn-primary" onclick="openModal('blog')">
+        <button class="btn btn-primary" onclick="openBlogModal('blog','1')">
             <i class="fas fa-plus"></i> Add New Post
         </button>
     </div>
@@ -48,4 +51,101 @@
         {% endif %}
     </div>
 </main>
+<div id="blogModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">Add New Blog Post</h2>
+            <button class="close-modal" onclick="closeBlogModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="blogForm">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="image">Featured Image</label>
+                    <div class="image-upload-container">
+                        <input type="file" id="image" accept="image/*" class="image-input" onchange="previewImage(event)">
+                        <div class="image-preview-wrapper">
+                            <img id="imagePreview" src="" alt="Preview" class="image-preview hidden">
+                            <div class="upload-placeholder">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Click to upload image</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="content">Content</label>
+                    <textarea id="content" required></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" onclick="closeModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="saveBlogPost()">Save Post</button>
+        </div>
+    </div>
+</div>
 {% endblock content %}
+{% block script %}
+<script>
+    tinymce.init({
+        selector: '#content',
+        height: 400,
+        menubar: true,
+        plugins: [
+            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+            'insertdatetime', 'media', 'table', 'help', 'wordcount'
+        ],
+        toolbar: 'undo redo | blocks | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | image | help',
+        content_style: 'body { font-family: Poppins, sans-serif; font-size: 14px }',
+    });
+    function openBlogModal(type, postId = null) {
+        const modal = document.getElementById('blogModal');
+        const modalTitle = document.getElementById('modalTitle');
+        
+        if (postId) {
+            modalTitle.textContent = 'Edit Blog Post';
+            const post = blogPosts.find(p => p.id === postId);
+            if (post) {
+                document.getElementById('title').value = post.title;
+                tinymce.get('content').setContent(post.content);
+                if (post.image) {
+                    document.getElementById('imagePreview').src = post.image;
+                    document.getElementById('imagePreview').classList.remove('hidden');
+                    document.querySelector('.upload-placeholder').style.display = 'none';
+                }
+                document.getElementById('blogForm').dataset.postId = postId;
+            }
+        } else {
+            modalTitle.textContent = 'Add New Blog Post';
+        }
+        
+        modal.style.display = 'block';
+    }
+
+    function closeBlogModal() {
+        const modal = document.getElementById('blogModal');
+        modal.style.display = 'none';
+        document.getElementById('blogForm').reset();
+        document.getElementById('blogForm').removeAttribute('data-post-id');
+        tinymce.get('content').setContent('');
+
+    }
+
+    // close modal when clicking outside
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            closeBlogModal();
+        }
+    }
+</script>
+{% endblock script %}

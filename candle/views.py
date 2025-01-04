@@ -245,7 +245,11 @@ class BookingUpdateView(LoginRequiredMixin, View):
             }, status=403)
 
         except Exception as e:
-            messages.error(request, 'An unexpected error occurred while updating the booking.')
+            if e.messages:
+                messages.error(request, e.messages[0])
+            else:
+                messages.error(request, 'An unexpected error occurred while updating the booking.')
+            
             return JsonResponse({
                 'status': 'error',
                 'message': 'An error occurred while updating the booking'
@@ -278,3 +282,21 @@ class BlogDeleteView(LoginRequiredMixin,SuccessMessageMixin, DeleteView):
     
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
+
+class DashboardWorkshopView(LoginRequiredMixin,TemplateView):
+    template_name = "candle/dashboard/workshops.html"
+
+class DashboardBookingView(LoginRequiredMixin,ListView):
+    model = Booking
+    template_name = "candle/dashboard/bookings.html"
+    context_object_name = 'bookings'
+    paginate_by = 10
+
+    def get_queryset(self):
+        user = self.request.user
+        # if superuser, show all bookings, otherwise show only user's bookings
+        if user.is_superuser:
+            return Booking.objects.all().order_by('-booking_date')
+        return Booking.objects.filter(user=user).order_by('-booking_date')
+    
+    

@@ -16,20 +16,20 @@
         </li>
         {% if user.is_superuser %}
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{% url 'candle:dashboard_workshops' %}" class="nav-link">
                 <i class="fas fa-calendar-alt"></i>
                 <span>Workshops</span>
             </a>
         </li>
-        {% endif %}
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{% url 'candle:dashboard_blogs' %}" class="nav-link">
                 <i class="fas fa-blog"></i>
                 <span>{% if not user.is_superuser %}My {% endif %}Blog Posts</span>
             </a>
         </li>
+        {% endif %}
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{% url 'candle:dashboard_bookings' %}" class="nav-link">
                 <i class="fas fa-book"></i>
                 <span>{% if not user.is_superuser %}My {% endif %}Bookings</span>
             </a>

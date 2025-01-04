@@ -1,0 +1,75 @@
+{% extends 'candle/dashboard/base.html' %}
+{% block content %}
+<main class="main-content">
+    <div class="page-header">
+        <h1 class="page-title">Manage Bookings</h1>
+    </div>
+
+    <div class="table-container">
+        {% if not bookings %}
+        <div class="empty-state">
+            <i class="fas fa-calendar-xmark"></i>
+            <p>No Recent Bookings</p>
+            <span>New bookings will appear here</span>
+        </div>
+        {% else %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Workshop</th>
+                    {% if user.is_superuser %}
+                    <th>Customer</th>
+                    {% endif %}
+                    <th>Seats</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                    <tr>
+                        <td>{{booking.workshop.title}}</td>
+                        {% if user.is_superuser %}
+                        <td>{{booking.user.get_full_name|default:"User"}}</td>
+                        {% endif %}
+                        <td>{{booking.number_of_seats}}</td>
+                        <td>{{booking.booking_date|date:"M d, Y"}}</td>
+                        <td><span class="status status-{{booking.status}}">{{booking.get_status_display}}</span></td>
+                        <td>
+                            <button class="action-btn" onclick="openBookingModal({{booking.id}})"><i class="fas fa-edit"></i></button>
+                            <form method="post" action="{% url 'candle:delete_bookings' booking.id %}" class="delete-form">
+                                {% csrf_token %}
+                                <button type="submit" class="action-btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        
+    </div>
+    {% if is_paginated %}
+        <div class="pagination-container">
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="pagination-btn"><i class="fas fa-angle-double-left"></i></a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="pagination-btn"><i class="fas fa-angle-left"></i></a>
+                {% endif %}
+
+                <span class="pagination-info">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="pagination-btn"><i class="fas fa-angle-right"></i></a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-btn"><i class="fas fa-angle-double-right"></i></a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+</main>
+{% endblock content %}
