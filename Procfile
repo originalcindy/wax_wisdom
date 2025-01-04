@@ -1,0 +1,1 @@
+web: gunicorn fictious_candle.wsgi:application --log-file -
