@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 import math
 from tinymce.models import HTMLField
+from cloudinary_storage.storage import RawMediaCloudinaryStorage
 
 
 User = get_user_model() 
@@ -63,7 +64,8 @@ class Blogpost(models.Model):
         upload_to='blog_thumbnails/',
         null=True,
         blank=True,
-        help_text='Featured image for the blog post'
+        help_text='Featured image for the blog post',
+        storage=RawMediaCloudinaryStorage()
     )
 
     def __str__(self):
@@ -104,7 +106,8 @@ class CandleWorkshop(models.Model):
         upload_to='workshop_thumbnails/',
         null=True,
         blank=True,
-        help_text='Featured image for the workshop'
+        help_text='Featured image for the workshop',
+        storage=RawMediaCloudinaryStorage()
     )
     date = models.DateField()
     time = models.TimeField()
