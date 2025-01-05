@@ -268,7 +268,7 @@ alt text
 Blog post page
 ![alt text](<static/images/Blog Post wireframe.png>)
 
-User Dashboards (Patient and Specialist)
+User Dashboards (candle workshop customers)
 Admin Panel
 Wireframes were designed using Balsamiq, ensuring responsiveness across devices.
 
@@ -288,3 +288,5 @@ CSRF protection for form submissions.
 Data encryption for sensitive information like passwords using Django's built-in authentication.
 Role-based access control to restrict sensitive data to authorized users.
 Role-based access control (RBAC) is implemented using Django's Group and Permission systems. Patients, specialists, and admins are grouped based on their role, and their access to features and sensitive information is restricted accordingly. Patients can only access their own medical data and booking history, while specialists can only view data related to their consultations. Admins have the broadest access for system management.
+
+
