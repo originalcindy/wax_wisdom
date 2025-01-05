@@ -70,7 +70,7 @@ My inspiration for Wax wisdom came from my joy of making candles.
 
 Colour Scheme
 I chose pinks, purples and greys as I believe they are aesthetically pleasing and would be appealing to the target audience who are prodominantly women.
-
+![alt text](<candle/static/candle/images/Wax wisdom colour swatch.png>)
 Primary Color: #2F323A (charcoal grey)
 Secondary Color: #DEBAC0 (Pink)
 Accent Color: #7757A (Purple)
@@ -252,18 +252,19 @@ Wireframes were created for the following key pages to ensure an intuitive user 
 
 Home Page
 mobile home page view
+![alt text](candle/static/candle/images/waxwisdomwireframehome.png)
 
-alt text
 
 Tablet home page view
 
-alt text
+![alt text](candle/static/candle/images/waxwisdomwireframetablet.png)
 
 Desktop home page view
 
 alt text
 
 Blog post page
+
 
 
 User Dashboards (candle workshop customers)
