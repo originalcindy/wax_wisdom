@@ -2,7 +2,7 @@
 Wax Wisdom is a fictious candle making blog which posts blogs weekly on various fragrance combinations, tips etc as well as how to tutorials for its readers. The blog became so popular and received so many messages that the owner Lechner decided to host candle making workshops for her loyal customers. 
 
 ## **Table of Contents**
-## Table of Contents
+
 1. [Introduction](#introduction)
 2. [Overview](#overview)
 3. [UX - User Experience](#ux---user-experience)
@@ -24,15 +24,10 @@ Wax Wisdom is a fictious candle making blog which posts blogs weekly on various 
 9. [Security](#security)
 10. [Features](#features)
     - [User View - Registered/Unregistered](#user-view---registeredunregistered)
-    - [Role-Based Dashboard Features](#role-based-dashboard-features)
-    - [Role-Based Navigation](#role-based-navigation)
-    - [Soft Delete/Archiving for Patient Accounts](#soft-deletearchiving-for-patient-accounts)
-    - [Appointment Booking System](#appointment-booking-system)
-    - [Messaging System](#messaging-system)
+    - [Candle workshop Booking System](#appointment-booking-system)
     - [Profile Management](#profile-management)
     - [Confirmation Messages](#confirmation-messages)
     - [CRUD Functionality](#crud-functionality)
-    - [Feature Showcase](#feature-showcase)
 11. [Future Features](#future-features)
 12. [Technologies & Languages Used](#technologies--languages-used)
 13. [Libraries & Frameworks](#libraries--frameworks)
@@ -69,22 +64,23 @@ My inspiration for Wax wisdom came from my joy of making candles.
 ## UX - User Experience
 
 Colour Scheme
-I chose pinks, purples and greys as I believe they are aesthetically pleasing and would be appealing to the target audience who are prodominantly women.
+I chose pinks, purples and greys as I believe they are aesthetically pleasing and would be appealing to the target audience who are prodominantly women, but not limited to.
+
 ![alt text](<candle/static/candle/images/Wax wisdom colour swatch.png>)
 Primary Color: #2F323A (charcoal grey)
 Secondary Color: #DEBAC0 (Pink)
 Accent Color: #7757A (Purple)
 Background: #fff (White) This combination ensures clarity, accessibility, and a professional appearance, allowing for easy navigation throughout the site.
 Font
-for the font I have used 
-The rest of the body text and interactive elements will use Catamaran for its readability and clean look.
+for the font I have used playfair display
+The rest of the body text and interactive elements will use poppins for its readability and clean look.
 Project Planning
 
 ## Strategy Plane
 ### Design Inspiration
 The primary objective of Wax Wisdom is to bring together an informative blog about candle creation and a candle workshop. By offering an intuitive interface, users can book a candle workshop safely and seamlessly from a trusted company who believe in high quality.
 
-Your site goals for the Wax Wisdom project will align with the purpose of the site, its intended audience, and the core functionalities you plan to implement. Here’s a detailed breakdown of the site goals:
+site goals
 
 1. Provide Candle-Related Information
 Goal: Establish Wax Wisdom as a trusted source of information about candles and candle-making.
@@ -225,15 +221,19 @@ Won’t Have (For Now) (Not in scope for the current project)
 **sprint 9**Deploy project to the cloud. Finalise README file with documentation.
 
 ## Sample User Stories
+
 Blog
 As a user, I want to view a list of blog posts so that I can read about candle-related topics.
 As an admin, I want to create, edit, and delete blog posts so that I can manage content on the website.
+
 Workshop Booking
 As a user, I want to view available workshops so that I can choose one to attend.
 As a user, I want to book a workshop so that I can learn candle-making.
+
 Review System
 As a user, I want to leave a review after attending a workshop so that I can share my feedback.
 As an admin, I want to manage reviews so that I can ensure quality feedback on the website.
+
 User Authentication
 As a user, I want to register and log in so that I can book workshops and leave reviews.
 As an admin, I want to manage users so that I can monitor bookings and reviews.
@@ -252,7 +252,7 @@ Wireframes were created for the following key pages to ensure an intuitive user 
 
 Home Page
 mobile home page view
-![alt text](candle/static/candle/images/waxwisdomwireframehome.png)
+
 
 
 Tablet home page view
@@ -261,14 +261,16 @@ Tablet home page view
 
 Desktop home page view
 
-alt text
+![alt text](candle/static/candle/images/waxwisdomwireframehome.png)
 
 Blog post page
 
 
 
 User Dashboards (candle workshop customers)
+
 Admin Panel
+
 Wireframes were designed using Balsamiq, ensuring responsiveness across devices.
 
 ## Database Schema - Entity Relationship Diagram
@@ -303,9 +305,16 @@ Role-based access control (RBAC) is implemented using Django's Group and Permiss
 - **asgiref** - enables Django to handle both synchronous and asynchronous web requests 
 -  **certifi** - provides a trusted set of SSL/TLS certificates that are necessary for secure, encrypted communication over HTTPS
 - **charset-normalizer** - is a Python library that helps your application detect and normalize character encodings
-- **Whitenoise** - 
-- **Cloudinary** - Media storage
-- **Whitenoise** - For serving static files
+- **cloudinary** - Media storage
+- **django-cloudinary** - 
+- **django-tinymce** - For serving static files
+-  **idna**
+- **pillow**
+-  **requests**
+-  **six**
+-  **sqlparse**
+-  **urllib3**
+-  **whitenoise**
 
 ## Tools & Programs
 - **GitHub Projects** - Project management and tracking
