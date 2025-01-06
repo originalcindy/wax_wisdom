@@ -395,6 +395,10 @@ All code has been validated through:
 - **Responsiveness**: The platform has been tested on mobile, tablet, and desktop devices to ensure optimal performance.
 - **Automatic Assignment Testing:** Tests were conducted to verify that newly registered users are automatically assigned to the "user" group and that their userProfile was successfully created. This was confirmed through both the user interface and the Django admin panel.
 
+- Lighthouse performance testing
+
+  
+
 ### **Bugs**
 - ### Bug Fix #1: `DISABLE_COLLECTSTATIC` Setting Causing Heroku Deployment Failure
 
