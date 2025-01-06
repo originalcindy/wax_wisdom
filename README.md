@@ -40,7 +40,7 @@ Wax Wisdom is a fictious candle making blog which posts blogs weekly on various 
     - [Connecting to GitHub](#connecting-to-github)
     - [Django Project Setup](#django-project-setup)
     - [Cloudinary API](#cloudinary-api)
-    - [PostgreSQL](#postgresql)
+    - [SQLite3](#SQLite3)
     - [Heroku deployment](#heroku-deployment)
     - [Clone project](#clone-project)
     - [Fork Project](#fork-project)
@@ -227,7 +227,7 @@ Won’t Have (For Now) (Not in scope for the current project)
 
 ## Sample User Stories
 
-##Blog
+Blog
 - As a user, I want to view a list of blog posts so that I can read about candle-related topics.
 - As an admin, I want to create, edit, and delete blog posts so that I can manage content on the website.
 
