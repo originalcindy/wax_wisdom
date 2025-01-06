@@ -222,7 +222,7 @@ Won’t Have (For Now) (Not in scope for the current project)
 
 ## Sample User Stories
 
-Blog
+##Blog
 As a user, I want to view a list of blog posts so that I can read about candle-related topics.
 As an admin, I want to create, edit, and delete blog posts so that I can manage content on the website.
 
@@ -281,6 +281,49 @@ CSRF protection for form submissions.
 Data encryption for sensitive information like passwords using Django's built-in authentication.
 Role-based access control to restrict sensitive data to authorized users.
 Role-based access control (RBAC) is implemented using Django's Group and Permission systems. Patients, specialists, and admins are grouped based on their role, and their access to features and sensitive information is restricted accordingly. Patients can only access their own medical data and booking history, while specialists can only view data related to their consultations. Admins have the broadest access for system management.
+
+## Feautures
+
+The Home page
+This is the main page that customers will see and allows them to login to an existing account or create an account, From here they can also read blogs, the about page in which they can get a good gist of who we are and what we specialise in. [click here to view homepage ](https://wax-wisdom-a6fcbf849763.herokuapp.com/)
+
+![alt text](candle/static/candle/images/wwhomepagedesktopview.png)
+
+create an account page
+
+![alt text](candle/static/candle/images/wwcreateaccountpagedesktopview.png)
+
+login page
+
+![alt text](candle/static/candle/images/wwloginpagedesktopview.png)
+
+previous and upcoming candle workshop page
+
+![alt text](candle/static/candle/images/wwworkshoppagedesktopview.png)
+
+about page
+
+![alt text](candle/static/candle/images/wwaboutpage.png)
+
+admin panel login page
+
+![alt text](candle/static/candle/images/wwadminloginpaneldesktopview.png)
+
+admin section
+
+![alt text](candle/static/candle/images/wwadminpaneldesktopview.png)
+
+once customers are logged in they can read blogs, book workshops and leave reviews once they have attended the workshops
+
+![alt text](candle/static/candle/images/wwblogposts.png)
+
+![alt text](candle/static/candle/images/wwreviewspage.png)
+
+for admin login internal view
+
+![alt text](candle/static/candle/images/wwmanagebookings.png)
+
+
 
 ## Technologies & Languages Used
 - HTML5 - Markup language for structuring the website
@@ -349,138 +392,6 @@ The error was caused by the absence of proper static file handling and a misconf
 2. Ensured the static and media handling was properly set up with Cloudinary and Whitenoise.
 3. Deleted the `DISABLE_COLLECTSTATIC=1` from Heroku's Config Vars.
 4. Deployed again, which successfully collected static files and completed the deployment.
-
-
-### Bug Fix #2: Permission Issues with Dashboard Access
-
-**Issue**
-
-Users are unable to access the Admin, Patient, and Specialist dashboards even though they are assigned to the correct user groups in the Django admin panel. The application either throws a 403 Forbidden error or does not recognize the users' group memberships.
-
-**Cause**
-
-The issue seems to be related to incorrect handling of group membership checks in the views or misconfiguration of user group assignments within the Django admin panel.
-
-### Steps Taken to Fix
-
-1. **Investigate Group Check Functions**:
-   - Reviewed the group-check functions (`is_admin`, `is_patient`, `is_specialist`) in `views.py` to ensure they correctly identify user groups.
-   - Confirmed that the group names match those set in the Django admin.
-
-2. **Validate Group Assignments**:
-   - Ensured that users are properly assigned to the correct groups (Admin, Patient, Specialist) in the Django Admin panel.
-   - Verified that the group names in the code match the group names set up in Django admin.
-
-3. **Testing**:
-   - Tested access with both existing and newly created users to ensure they can access their respective dashboards without issues.
-   - Verified that group membership was properly recognized for all users.
-
-4. **Revert Changes**:
-   - Once the issue was resolved, reverted any temporary modifications to the views back to their original implementation.
-
-5. **Verify Access Control**:
-   - Tested edge cases, such as users without group assignments attempting to access dashboards, to ensure proper behavior.
-   - Confirmed that custom `PermissionDenied` logic displayed the correct 403 error page for unauthorized access attempts.
-
-**Outcome**
-
-The problem was successfully resolved, allowing users to access their respective dashboards based on group membership without encountering 403 errors or redirection issues.
-
-### Bug Fix #3: Form Not Visible on Homepage Due to Conflicting View Usage
-
-### Issue
-The form on the homepage not visible due to conflicting view usage. The homepage should display a form that allows users to search for specialists, but the form did not appear as expected.
-
-### Cause
-The conflict arises from the use of both a class-based `HomePage` view and a function-based `home` view. The class-based view does not properly pass the `specialties` context required to render the form on the homepage.
-
-### Steps Taken to Fix
-
-1. **Update URLs**:
-   - Updated `core/urls.py` to replace the class-based `HomePage` view with the function-based `home` view to ensure the correct context is passed.
-
-2. **Verify Context Passing**:
-   - Verified that the `specialties` context was properly passed to `index.html` so that the form could display the list of specialties dynamically.
-
-3. **Test Form Visibility and Functionality**:
-   - Tested the homepage to ensure that the form was visible and correctly populated with the list of specialties from the database.
-
-4. **Commit Changes**:
-   - Added and committed the changes after confirming that the issue was resolved.
-
-### Outcome
-The form is now visible on the homepage and correctly displays the list of specialties, allowing users to search for specialists as intended. The conflict between the views was resolved by using the appropriate function-based view that properly passes the necessary context.
-
-
-### Bug Fix #4: Deployed webpage only showing READ ME
-
-### Issue
-a deployed webpage from github only showed a READ ME 
-
-### Cause
-deployed from GitHub only shows a README file and nothing else, it likely indicates an issue with the deployment process, specifically with how the webpage is being served or structured.
-
-### Steps Taken to Fix
-
-1. **Ensure that you have an index.html file at the root of your repository**:
-- If you are using a Jekyll site make sure the necessary Jekyll configuration files (_config.yml, etc.) are in place and set up correctly.
-- In the GitHub Pages settings for the repository, make sure you are specifying the correct branch (main, master, gh-pages) and the folder where the website files (like index.html) are located.
-
-2. **Add Signal Imports in `ready()` Method**:
-   - Added a `ready()` method in `accounts/apps.py` to correctly import the signal handlers, ensuring they were registered when the app was loaded.
-
-3. **Remove Debug Statements**:
-   - Removed unnecessary print statements that were used for debugging to keep the code clean and efficient.
-Problem: If the repository is a GitHub Pages site and you're seeing the README.md file displayed instead of the expected webpage, it could be that GitHub Pages is trying to serve the README.md file as the main page. GitHub Pages typically looks for a file like index.html or a Jekyll site to render the home page, but it might fall back to showing the README.md if no proper webpage is found.
-### Outcome
-The signal is now correctly triggered upon user registration, resulting in the automatic assignment of new users to the "Patients" group and the creation of a `PatientProfile` as intended. The configuration in `INSTALLED_APPS` and signal registration were successfully fixed.
-
-
-### Bug Fix #5: Specialist Availability Submission and Display Issues
-
-### Issue
-Specialists encountered multiple issues when trying to set their availability. Initially, a 405 Method Not Allowed error occurred upon form submission. After fixing that, the start time was not displayed on the specialist dashboard, while the end time appeared correctly.
-
-### Cause
-1. **405 Method Not Allowed**:
-   - The `post` method was missing from the `SpecialistDashboardView` class in `dashboard/views.py`, resulting in the 405 error when attempting to submit availability.
-
-2. **Missing Start Time**:
-   - The `start_time` was not displayed on the specialist dashboard due to a missing template tag (`{{ availability.start_time }}`) in the "Your Availability" section.
-
-### Steps Taken to Fix
-
-1. **Handle POST Method in View**:
-   - Added a `post` method to `SpecialistDashboardView` in `dashboard/views.py` to properly handle form submissions, resolving the 405 Method Not Allowed error.
-
-2. **Fix Start Time Rendering in Template**:
-   - Updated the specialist dashboard template to include the `{{ availability.start_time }}` tag, ensuring that both the `start_time` and `end_time` are displayed in the "Your Availability" section.
-
-### Outcome
-Specialists can now successfully submit their availability without encountering the 405 error. Both `start_time` and `end_time` are displayed correctly on the specialist dashboard, providing a complete view of their available times for appointments.
-
-
-### Bug Fix #6: Incorrect Template Rendered for Specialist Search Results
-
-### Issue
-The incorrect template was being rendered for specialist search results on the HealMate platform. A secondary `search_results.html` template in a different directory was causing confusion, leading to a simplified search results page being displayed. Key features like specialist bio, profile image, and pagination were missing.
-
-### Cause
-An additional `search_results.html` template was located inside the global `/templates/specialists/` directory. This template had minimal content and was unintentionally overriding the correct `search_results.html` template in the `/specialists/templates/specialists/` directory.
-
-### Steps Taken to Fix
-
-1. **Isolate Problematic Template**:
-   - Renamed the global `/templates/specialists/` directory to determine if it was the source of the issue.
-
-2. **Confirm and Resolve Issue**:
-   - After confirming the issue was caused by the additional template, deleted the `/templates/specialists/` directory and its contents.
-
-3. **Verify Correct Template Rendering**:
-   - Verified that the correct `search_results.html` template inside `/specialists/templates/specialists/` is now rendering, displaying all necessary features, including the specialist bio, profile image, and pagination.
-
-### Outcome
-The correct template for specialist search results is now rendering as intended. The page displays all relevant information, including specialist bio, profile images, and pagination, providing users with a complete view of search results.
 
 ## Deployment
 
@@ -562,9 +473,7 @@ Since this is an educational project, the privacy and data handling policies may
 
 ### Code
 - **Django Documentation**: The official docs were invaluable in setting up the project structure and solving specific issues.
-- **Django Crispy Forms Documentation**: Used to streamline form rendering.
 - **Chatgpt AI**: coding ideas
-- **Favicon.io**: For Favicon generation.
 - **Google Fonts**: For typography.
 
 ### Media
