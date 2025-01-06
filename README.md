@@ -275,7 +275,7 @@ Wireframes were designed using Balsamiq, ensuring responsiveness across devices.
 ## Database Schema - Entity Relationship Diagram
 The ERD for Wax wisdom illustrates the relationships between the users, candle enthusiasts, bookings, and more. This is essential to demonstrate the relationships between the different models in the SQLite3 database.
 
-The ERD also demonstrates the platform's role-based structure. Each user is assigned to a specific group that determines their access level. PatientProfile and SpecialistProfile models are linked to the User model, and each profile type has specific fields relevant to their role. Admins have broader access to manage both specialist vetting and platform data.
+The ERD also demonstrates the platform's role-based structure. Each user is assigned to a specific group that determines their access level. user models can create an account and view blogs as well as book candle workshops providing their are spots left and only once they have attended the workshop can they leave a review. Admins have broader access to manage both blog creation and workshop creation data, bookings. Admin can create read update and delete (CRUD) all data.
 
 ERD Illustration
 
@@ -288,7 +288,6 @@ All data is securely handled with Django’s security features, including:
 CSRF protection for form submissions.
 Data encryption for sensitive information like passwords using Django's built-in authentication.
 Role-based access control to restrict sensitive data to authorized users.
-Role-based access control (RBAC) is implemented using Django's Group and Permission systems. Patients, specialists, and admins are grouped based on their role, and their access to features and sensitive information is restricted accordingly. Patients can only access their own medical data and booking history, while specialists can only view data related to their consultations. Admins have the broadest access for system management.
 
 ## Features
 
@@ -374,7 +373,7 @@ succesful logout message
 ## Tools & Programs
 - **GitHub Projects** - Project management and tracking
 - **Heroku** - Deployment and hosting
-- **Balsamiq** - Wireframes and design prototypes
+- **Balsamiq** - Wireframes 
 
 ## **Testing**
 
@@ -394,8 +393,7 @@ All code has been validated through:
 
 - **Browser Compatibility**: The website has been tested on Chrome, Firefox, Safari, and Edge.
 - **Responsiveness**: The platform has been tested on mobile, tablet, and desktop devices to ensure optimal performance.
-- **Role-Based Dashboard Testing:** Each user type (patient, specialist, admin) was tested to ensure they were directed to the correct dashboard after login. Patients were assigned to the correct group during registration, and specialists were manually added by admins. The redirection logic was thoroughly tested by registering new users and ensuring role-based access was properly applied.
-- **Automatic Assignment Testing:** Tests were conducted to verify that newly registered users are automatically assigned to the "Patient" group and that their PatientProfile was successfully created. This was confirmed through both the user interface and the Django admin panel.
+- **Automatic Assignment Testing:** Tests were conducted to verify that newly registered users are automatically assigned to the "user" group and that their userProfile was successfully created. This was confirmed through both the user interface and the Django admin panel.
 
 ### **Bugs**
 - ### Bug Fix #1: `DISABLE_COLLECTSTATIC` Setting Causing Heroku Deployment Failure
@@ -535,16 +533,15 @@ As part of my **Wax Wisdom** project, I am dedicated to ensuring that users’ p
 
 - **Data Collection**: Wax Wisdom, as a project, collects personal data during user registration and profile setup. This includes:
   - First and Last Name
-  - Contact Information (Phone Number, Email)
+  - Contact Information (Email)
 
 - **Data Usage**: The information gathered is used solely for educational purposes, including:
   - Managing user profiles.
-  - Facilitating appointment bookings between patients and specialists.
-  - Sending notifications related to appointments or system updates.
+  - Facilitating workshop bookings between users (candle enthusiasts) and admin.
+  
+- **Data Sharing**: As this is a student project, personal data will not be shared with any third parties. It will only be used for demonstrating the functionality of the project. All information remains confidential and will not be distributed beyond the scope of the Wax Wisdom Project.
 
-- **Data Sharing**: As this is a student project, personal data will not be shared with any third parties. It will only be used for demonstrating the functionality of the project. All information remains confidential and will not be distributed beyond the scope of the HealMate project.
-
-- **Security**: While this project is intended for educational use, I strive to implement best practices for data security using the Django framework’s built-in tools. Personal information is securely stored in the database and protected against unauthorized access.
+- **Security**: While this project is intended for educational use, I strive to implement best practices for data security using the Django framework’s built-in tools. Personal information is securely stored in the database and protected against unauthorised access.
 
 - **User Rights**: Users of this platform, as part of this project, have the right to request modifications or deletion of their data. For any requests or concerns about personal data usage in this project, please contact the project owner at the provided email address.
 
