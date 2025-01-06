@@ -104,7 +104,7 @@ Goal: Promote the Wax Wisdom brand as a leading candle-making workshop provider.
 Features Supporting This Goal:
 Consistent and aesthetically pleasing design aligned with the brand.
 Content that highlights the expertise and unique selling points of Wax Wisdom workshops.
-A "About Us" section to build trust and provide background about the company.
+A "About" section to build trust and provide background about the company.
 5. Ensure Usability and Accessibility
 Goal: Deliver a user-friendly and accessible experience for all users, regardless of device or ability.
 Features Supporting This Goal:
@@ -175,6 +175,7 @@ Admin view to manage bookings and reviews.
 Charts or stats to track booking trends.
 Could Have (Desirable but not necessary)
 These features can be deferred to later phases of the project.
+
 ## Wont Have
 Search Functionality
 
@@ -210,15 +211,15 @@ Won’t Have (For Now) (Not in scope for the current project)
 
 ## Sprints
 
-**sprint 1** Project setup, GitHub configuration, Agile board setup, and initial database setup.
-**sprint 2**Create blog models and views, implement list and detail pages, and add styling.
-**sprint 3**Create workshop and booking models, forms, and views. Test booking functionality.
-**sprint 4**Implement user authentication (register, login, logout) and role-based access.
-**sprint 5**Create review model, forms, and views. Link reviews to workshops.
-**sprint 6**Complete front-end styling (home page, blog, booking, reviews).
-**sprint 7**Write tests for models, forms, and views. Perform manual testing.
-**sprint 8**Prepare deployment (static files, environment variables).
-**sprint 9**Deploy project to the cloud. Finalise README file with documentation.
+**sprint 1**  Project setup, GitHub configuration, Agile board setup, and initial database setup.
+**sprint 2** Create blog models and views, implement list and detail pages, and add styling.
+**sprint 3** Create workshop and booking models, forms, and views. Test booking functionality.
+**sprint 4** Implement user authentication (register, login, logout) and role-based access.
+**sprint 5** Create review model, forms, and views. Link reviews to workshops.
+**sprint 6** Complete front-end styling (home page, blog, booking, reviews).
+**sprint 7** Write tests for models, forms, and views. Perform manual testing.
+**sprint 8** Prepare deployment (static files, environment variables).
+**sprint 9** Deploy project to the cloud. Finalise README file with documentation.
 
 ## Sample User Stories
 
@@ -271,6 +272,7 @@ The ERD for Wax wisdom illustrates the relationships between the users, candle e
 The ERD also demonstrates the platform's role-based structure. Each user is assigned to a specific group that determines their access level. PatientProfile and SpecialistProfile models are linked to the User model, and each profile type has specific fields relevant to their role. Admins have broader access to manage both specialist vetting and platform data.
 
 ERD Illustration
+
 ![alt text]![alt text](<media/blog_thumbnails/ERD wax wisdom (1).png>)
 The above ERD was generated using lucid.app
 
@@ -282,7 +284,7 @@ Data encryption for sensitive information like passwords using Django's built-in
 Role-based access control to restrict sensitive data to authorized users.
 Role-based access control (RBAC) is implemented using Django's Group and Permission systems. Patients, specialists, and admins are grouped based on their role, and their access to features and sensitive information is restricted accordingly. Patients can only access their own medical data and booking history, while specialists can only view data related to their consultations. Admins have the broadest access for system management.
 
-## Feautures
+## Features
 
 The Home page
 This is the main page that customers will see and allows them to login to an existing account or create an account, From here they can also read blogs, the about page in which they can get a good gist of who we are and what we specialise in. [click here to view homepage ](https://wax-wisdom-a6fcbf849763.herokuapp.com/)
@@ -322,8 +324,6 @@ once customers are logged in they can read blogs, book workshops and leave revie
 for admin login internal view
 
 ![alt text](candle/static/candle/images/wwmanagebookings.png)
-
-
 
 ## Technologies & Languages Used
 - HTML5 - Markup language for structuring the website
@@ -393,6 +393,37 @@ The error was caused by the absence of proper static file handling and a misconf
 3. Deleted the `DISABLE_COLLECTSTATIC=1` from Heroku's Config Vars.
 4. Deployed again, which successfully collected static files and completed the deployment.
 
+- ### Bug Fix #2: Database Migrations Failing
+
+**Issue:** 
+tried to run python manage.py migrate, got an error stating the database migration has failed.
+
+**Cause:** 
+- there’s a mismatch between the migrations and the database schema.
+- Missing migrations that haven't been applied yet.
+
+**Steps Taken to Fix:**
+1. 
+
+- ### Bug Fix #3: Not Setting Django's DEBUG to False in Production
+
+**Issue:** 
+After deploying the app, saw detailed Django error pages with sensitive information (like database credentials or secret keys), which can be a security risk.
+
+**Cause:** 
+DEBUG is still set to True in your settings.py.
+
+**Steps Taken to Fix:**
+changed setting to DEBUG = not os.getenv("DJANGO_DEBUG", "true").lower() == "false"
+
+- ### Bug Fix #4: 404 Error on Certain Pages (Missing URLs)
+
+**Issue:** 
+ Some of the links on my website (for example, booking page) lead to a 404 error page.
+
+**Cause:** 
+
+
 ## Deployment
 
 All code for this project was written in Visual Studio/Gitpod as the integrated development environment. GitHub was used for version control, and the application was deployed to Heroku from GitHub.
@@ -424,7 +455,7 @@ The steps for deploying to Heroku are as follows (Experience from previous Djang
 9. **Buildpack:** Select Node.js and Python as the buildpacks for your project.
 10. **Deploy:** Once the configuration is complete, click the "Deploy Branch" button. After successful deployment, a "View" button will appear to take you to the live site.
 
-The live link for this project can be found here: <a href="https://wax-wisdom-a6fcbf849763.herokuapp.com//" target="_blank">wax-wisdom</a>
+The live link for this project can be found here: <a href="https://wax-wisdom-a6fcbf849763.herokuapp.com" target="_blank">wax-wisdom</a>
 
 ### Fork this Repository
 
@@ -484,6 +515,7 @@ Since this is an educational project, the privacy and data handling policies may
 - **python programming bible** by James P Meyers
 - **Django visual guide** by Ben Bloomfield
 - **Django for Beginners** by William S. Vincent.
+- **Modern operating systems** by Michael S Tannebaum
 
 ### Supportive Family
 - My family for their support and patience during this project. 
