@@ -61,6 +61,8 @@ UX - User Experience
 Design Inspiration
 My inspiration for Wax wisdom came from my joy of making candles.
 
+![alt text](candle/static/candle/images/amiresponsiveww.png)
+
 ## UX - User Experience
 
 Colour Scheme
@@ -383,7 +385,7 @@ During the deployment to Heroku, the following error occurred:
 
 The error was caused by the absence of proper static file handling and a misconfiguration in the `INSTALLED_APPS` list in `settings.py`.
 
-**Cause:**  
+#**Cause:**  
 - The `DISABLE_COLLECTSTATIC=1` config variable was used in Heroku to prevent collectstatic from running during the initial setup.
 - There was a duplicate entry for `django.contrib.staticfiles` in `INSTALLED_APPS`, which caused an error when trying to collect static files.
 
@@ -405,7 +407,7 @@ tried to run python manage.py migrate, got an error stating the database migrati
 **Steps Taken to Fix:**
 1. 
 
-- ### Bug Fix #3: Not Setting Django's DEBUG to False in Production
+- ## Bug Fix #3: Not Setting Django's DEBUG to False in Production
 
 **Issue:** 
 After deploying the app, saw detailed Django error pages with sensitive information (like database credentials or secret keys), which can be a security risk.
@@ -422,6 +424,17 @@ changed setting to DEBUG = not os.getenv("DJANGO_DEBUG", "true").lower() == "fal
  Some of the links on my website (for example, booking page) lead to a 404 error page.
 
 **Cause:** 
+
+- ### Bug Fix #5: Am i responsive page not loading
+
+ **Issue:** 
+ Deployed webpage not appearing in am i responsive page
+
+ **Cause:** 
+ settings.py was blocking iframes
+
+ **Steps Taken to Fix:**
+ added X_FRAME_OPTIONS = "allow all" temporarily to allow the iframe
 
 
 ## Deployment
