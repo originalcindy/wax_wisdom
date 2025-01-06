@@ -253,7 +253,7 @@ Wireframes were created for the following key pages to ensure an intuitive user 
 Home Page
 mobile home page view
 
-
+![alt text](candle/static/candle/images/waxwisdomwireframemobile.png)
 
 Tablet home page view
 
@@ -262,14 +262,6 @@ Tablet home page view
 Desktop home page view
 
 ![alt text](candle/static/candle/images/waxwisdomwireframehome.png)
-
-Blog post page
-
-
-
-User Dashboards (candle workshop customers)
-
-Admin Panel
 
 Wireframes were designed using Balsamiq, ensuring responsiveness across devices.
 
