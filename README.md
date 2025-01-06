@@ -1,5 +1,5 @@
 # **Wax Wisdom**
-Wax Wisdom is a fictious candle making blog which posts blogs weekly on various fragrance combinations, tips etc as well as how to tutorials for its readers. The blog became so popular and received so many messages that the owner Lechner decided to host candle making workshops for her loyal customers. 
+Wax Wisdom is a fictious candle making blog which posts blogs weekly on various fragrance combinations, tips etc as well as how to tutorials for its readers. The blog became so popular and received so many messages that the owner Lechner decided to host candle making workshops for her loyal customers. Since there is no payment gateway implemented the customers are expected to pay on the day, the wax studio accepts cash or card using a sumup card payment machine.
 
 ## **Table of Contents**
 
@@ -63,6 +63,8 @@ My inspiration for Wax wisdom came from my joy of making candles.
 
 ![alt text](candle/static/candle/images/amiresponsiveww.png)
 
+https://ui.dev/amiresponsive
+
 ## UX - User Experience
 
 Colour Scheme
@@ -73,14 +75,14 @@ Primary Color: #2F323A (charcoal grey)
 Secondary Color: #DEBAC0 (Pink)
 Accent Color: #7757A (Purple)
 Background: #fff (White) This combination ensures clarity, accessibility, and a professional appearance, allowing for easy navigation throughout the site.
-Font
-for the font I have used playfair display
-The rest of the body text and interactive elements will use poppins for its readability and clean look.
+### Font
+for the font I have used **playfair** display
+The rest of the body text and interactive elements will use **poppins** for its readability and clean look.
 Project Planning
 
 ## Strategy Plane
 ### Design Inspiration
-The primary objective of Wax Wisdom is to bring together an informative blog about candle creation and a candle workshop. By offering an intuitive interface, users can book a candle workshop safely and seamlessly from a trusted company who believe in high quality.
+The primary objective of Wax Wisdom is to bring together an informative blog about candle creation and a candle making workshop. By offering an intuitive interface, users can book a candle workshop safely and seamlessly from a trusted company who believe in high quality.
 
 site goals
 
@@ -161,7 +163,7 @@ Secure deployment (environment variables, DEBUG mode off).
 Should Have (Important but not critical for immediate delivery)
 These features add significant value and should be included if time permits.
 
-About Us Page
+About Page
 
 Informational page about the company and its mission.
 Improved Notificatons
@@ -213,41 +215,43 @@ Won’t Have (For Now) (Not in scope for the current project)
 
 ## Sprints
 
-**sprint 1**  Project setup, GitHub configuration, Agile board setup, and initial database setup.
-**sprint 2** Create blog models and views, implement list and detail pages, and add styling.
-**sprint 3** Create workshop and booking models, forms, and views. Test booking functionality.
-**sprint 4** Implement user authentication (register, login, logout) and role-based access.
-**sprint 5** Create review model, forms, and views. Link reviews to workshops.
-**sprint 6** Complete front-end styling (home page, blog, booking, reviews).
-**sprint 7** Write tests for models, forms, and views. Perform manual testing.
-**sprint 8** Prepare deployment (static files, environment variables).
-**sprint 9** Deploy project to the cloud. Finalise README file with documentation.
+- **sprint 1**  Project setup, GitHub configuration, Agile board setup, and initial database setup.
+- **sprint 2** Create blog models and views, implement list and detail pages, and add styling.
+- **sprint 3** Create workshop and booking models, forms, and views. Test booking functionality.
+- **sprint 4** Implement user authentication (register, login, logout) and role-based access.
+- **sprint 5** Create review model, forms, and views. Link reviews to workshops.
+- **sprint 6** Complete front-end styling (home page, blog, booking, reviews).
+- **sprint 7** Write tests for models, forms, and views. Perform manual testing.
+- **sprint 8** Prepare deployment (static files, environment variables).
+- **sprint 9** Deploy project to the cloud. Finalise README file with documentation.
 
 ## Sample User Stories
 
 ##Blog
-As a user, I want to view a list of blog posts so that I can read about candle-related topics.
-As an admin, I want to create, edit, and delete blog posts so that I can manage content on the website.
+- As a user, I want to view a list of blog posts so that I can read about candle-related topics.
+- As an admin, I want to create, edit, and delete blog posts so that I can manage content on the website.
 
 Workshop Booking
-As a user, I want to view available workshops so that I can choose one to attend.
-As a user, I want to book a workshop so that I can learn candle-making.
+- As a user, I want to view available workshops so that I can choose one to attend.
+- As a user, I want to book a workshop so that I can learn candle-making.
 
 Review System
-As a user, I want to leave a review after attending a workshop so that I can share my feedback.
-As an admin, I want to manage reviews so that I can ensure quality feedback on the website.
+- As a user, I want to leave a review after attending a workshop so that I can share my feedback.
+- As an admin, I want to manage reviews so that I can ensure quality feedback on the website.
 
 User Authentication
-As a user, I want to register and log in so that I can book workshops and leave reviews.
-As an admin, I want to manage users so that I can monitor bookings and reviews.
+- As a user, I want to register and log in so that I can book workshops and leave reviews.
+- As an admin, I want to manage users so that I can monitor bookings and reviews.
 
 The Wax Wisdom platform will include the following MVP functionalities:
 
-User registration and role-based dashboards.
+User registration 
+blogs
 Candle workshop scheduling for customers
-Specialist profiles showcasing specialty, experience, and availability.
+reviews
+
 Structural Plane
-The site is structured around an easy-to-use interface. The primary menu includes links to specialist searches, appointment bookings, and user profile management.
+ Wax Wisdom candle blog, with a focus on user-friendly navigation, robust booking functionality, and a seamless experience for visitors and users. It also ensures that the blog is set up for efficient content management and growth.
 
 ## Skeleton & Surface Planes
 Wireframes
@@ -269,7 +273,7 @@ Desktop home page view
 Wireframes were designed using Balsamiq, ensuring responsiveness across devices.
 
 ## Database Schema - Entity Relationship Diagram
-The ERD for Wax wisdom illustrates the relationships between the users, candle enthusiasts, bookings, and more. This is essential to demonstrate the relationships between the different models in the PostgreSQL database.
+The ERD for Wax wisdom illustrates the relationships between the users, candle enthusiasts, bookings, and more. This is essential to demonstrate the relationships between the different models in the SQLite3 database.
 
 The ERD also demonstrates the platform's role-based structure. Each user is assigned to a specific group that determines their access level. PatientProfile and SpecialistProfile models are linked to the User model, and each profile type has specific fields relevant to their role. Admins have broader access to manage both specialist vetting and platform data.
 
@@ -321,18 +325,33 @@ once customers are logged in they can read blogs, book workshops and leave revie
 
 ![alt text](candle/static/candle/images/wwblogposts.png)
 
+users can leave reviews once they have attended a candle workshop
+
 ![alt text](candle/static/candle/images/wwreviewspage.png)
 
 for admin login internal view
 
 ![alt text](candle/static/candle/images/wwmanagebookings.png)
 
+succesful account creation message
+
+![alt text](candle/static/candle/images/succesfulaccountcreation.png)
+
+succesful login message
+
+![alt text](candle/static/candle/images/successfullogin.png)
+
+succesful logout message
+
+![alt text](candle/static/candle/images/successfullogout.png)
+
+
 ## Technologies & Languages Used
 - HTML5 - Markup language for structuring the website
 - CSS3 - Styling language for designing the layout and visual aesthetics
-- JavaScript - For interactivity and DOM manipulation on the frontend
+- JavaScript - For event listner and toggle menu
 - Python (Django) - Backend web framework for server-side logic and management
-- PostgreSQL - Database management system for storing data
+- SQLite3 - Database management system for storing data
 - Cloudinary - Cloud-based image storage solution
 - Whitenoise - For serving static files directly from Django
 
@@ -369,6 +388,7 @@ All code has been validated through:
 ![HTML validator test]![alt text](<candle/static/candle/images/heroku app w3 checker screenshot.png>)
 
 ![CSS validator test]
+![alt text](<candle/static/candle/images/css screenshot.png>)
 
 ### **User Testing**
 
@@ -405,7 +425,8 @@ tried to run python manage.py migrate, got an error stating the database migrati
 - Missing migrations that haven't been applied yet.
 
 **Steps Taken to Fix:**
-1. 
+Ensured all migrations were created and applied
+used makemigrations and migrate commands in terminal
 
 - ## Bug Fix #3: Not Setting Django's DEBUG to False in Production
 
@@ -424,6 +445,10 @@ changed setting to DEBUG = not os.getenv("DJANGO_DEBUG", "true").lower() == "fal
  Some of the links on my website (for example, booking page) lead to a 404 error page.
 
 **Cause:** 
+the URL path wasnt defined in urls.py file.
+
+**Steps Taken to Fix:**
+Checked urls.py and corrected URL patterns: syntax issue
 
 - ### Bug Fix #5: Am i responsive page not loading
 
@@ -434,12 +459,25 @@ changed setting to DEBUG = not os.getenv("DJANGO_DEBUG", "true").lower() == "fal
  settings.py was blocking iframes
 
  **Steps Taken to Fix:**
- added X_FRAME_OPTIONS = "allow all" temporarily to allow the iframe
+ added X_FRAME_OPTIONS = "allow all" temporarily to allow the iframe 
+ commited save and pushed
+ security issues due to clickjacking but for the project, this is ok.
 
+- ### Bug Fix #6:  Django Static Files Not Served in Production
+
+**Issue:** 
+ CSS files are working in development but aren't being served correctly in production after deployment to Heroku or another platform.
+
+ **Cause:** 
+incorrect configuration for static files in production.
+The static files weren’t collected or served correctly.
+
+ **Steps Taken to Fix:**
+ Checked settings.py configuration for static files: syntax error
 
 ## Deployment
 
-All code for this project was written in Visual Studio/Gitpod as the integrated development environment. GitHub was used for version control, and the application was deployed to Heroku from GitHub.
+All code for this project was written in Visual Studio/Github as the integrated development environment. GitHub was used for version control, and the application was deployed to Heroku from GitHub.
 
 ### Pre-Deployment
 
@@ -512,7 +550,6 @@ As part of my **Wax Wisdom** project, I am dedicated to ensuring that users’ p
 
 Since this is an educational project, the privacy and data handling policies may evolve over time as more features are added and refined.
 
-
 ## Credits
 
 ### Code
@@ -528,7 +565,7 @@ Since this is an educational project, the privacy and data handling policies may
 - **python programming bible** by James P Meyers
 - **Django visual guide** by Ben Bloomfield
 - **Django for Beginners** by William S. Vincent.
-- **Modern operating systems** by Michael S Tannebaum
+- **Modern operating systems** by Andrew S Tannebaum
 
 ### Supportive Family
 - My family for their support and patience during this project. 
