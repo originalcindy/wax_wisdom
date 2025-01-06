@@ -301,20 +301,19 @@ Role-based access control (RBAC) is implemented using Django's Group and Permiss
 
 ## Libraries & Frameworks
 - **Django** - Backend framework
-- **Django Crispy Forms** - For elegant form rendering
 - **asgiref** - enables Django to handle both synchronous and asynchronous web requests 
 -  **certifi** - provides a trusted set of SSL/TLS certificates that are necessary for secure, encrypted communication over HTTPS
 - **charset-normalizer** - is a Python library that helps your application detect and normalize character encodings
 - **cloudinary** - Media storage
-- **django-cloudinary** - 
+- **django-cloudinary** - provides an easy, scalable, and efficient way to handle media files in Django projects 
 - **django-tinymce** - For serving static files
--  **idna**
-- **pillow**
--  **requests**
--  **six**
--  **sqlparse**
--  **urllib3**
--  **whitenoise**
+-  **idna** - is a Python package that provides support for Internationalized Domain Names (IDN).
+- **pillow** - Pillow is a powerful and easy-to-use library for image processing in Python.
+-  **requests** - is a Python library used to make HTTP requests to interact with web servers and APIs.
+-  **six** - is a library that helps ensure compatibility between Python 2 and Python 3
+-  **sqlparse** - is a Python library that helps with parsing, formatting, and analyzing SQL queries.
+-  **urllib3** -  a foundational library for making HTTP requests in Python
+-  **whitenoise** - is a Python package that simplifies the process of serving static files
 
 ## Tools & Programs
 - **GitHub Projects** - Project management and tracking
