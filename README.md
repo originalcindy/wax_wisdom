@@ -136,7 +136,7 @@ Role-based access (admin vs. customer).
 Password security using Django's built-in authentication.
 Workshop Booking System
 
-Form for users to book workshops.
+Role based login Form for users to book workshops.
 Database to store booking information.
 Booking validation (e.g., availability, duplicate bookings).
 
@@ -146,7 +146,7 @@ Blog post listings and detailed views for users.
 SEO-friendly structure for blog posts.
 
 Workshop Review System
-Users can leave reviews for workshops.
+Users can leave reviews for workshops, only once they have attended.
 Display reviews on the workshop detail pages.
 
 Responsive Design
@@ -174,7 +174,7 @@ Blog post pagination.
 Filtering workshops by date, location, or availability.
 Admin Dashboard Enhancements
 
-Admin view to manage bookings and reviews.
+Role based login Admin view to manage bookings and reviews.
 Charts or stats to track booking trends.
 Could Have (Desirable but not necessary)
 These features can be deferred to later phases of the project.
