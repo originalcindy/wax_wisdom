@@ -451,18 +451,7 @@ DEBUG is still set to True in your settings.py.
 **Steps Taken to Fix:**
 changed setting to DEBUG = not os.getenv("DJANGO_DEBUG", "true").lower() == "false"
 
-- ### Bug Fix #4: 404 Error on Certain Pages (Missing URLs)
-
-**Issue:** 
- Some of the links on my website (for example, booking page) lead to a 404 error page.
-
-**Cause:** 
-the URL path wasnt defined in urls.py file.
-
-**Steps Taken to Fix:**
-Checked urls.py and corrected URL patterns: syntax issue
-
-- ### Bug Fix #5: Am i responsive page not loading
+- ### Bug Fix #4: Am i responsive page not loading
 
  **Issue:** 
  Deployed webpage not appearing in am i responsive page
@@ -475,7 +464,7 @@ Checked urls.py and corrected URL patterns: syntax issue
  commited save and pushed
  security issues due to clickjacking but for the project, this is ok.
 
-- ### Bug Fix #6:  Django Static Files Not Served in Production
+- ### Bug Fix #5:  Django Static Files Not Served in Production
 
 **Issue:** 
  CSS files are working in development but aren't being served correctly in production after deployment to Heroku or another platform.
