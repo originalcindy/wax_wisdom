@@ -139,32 +139,31 @@ Workshop Booking System
 Form for users to book workshops.
 Database to store booking information.
 Booking validation (e.g., availability, duplicate bookings).
-Blog Section
 
+Blog Section
 Create, read, update, delete (CRUD) functionality for blog posts (admin-only).
 Blog post listings and detailed views for users.
 SEO-friendly structure for blog posts.
-Workshop Review System
 
+Workshop Review System
 Users can leave reviews for workshops.
 Display reviews on the workshop detail pages.
-Responsive Design
 
+Responsive Design
 Fully functional on mobile, tablet, and desktop.
 Accessible layout adhering to Web Content Accessibility Guidelines (WCAG).
-Database and Models
 
+Database and Models
 Custom models for workshops, bookings, and reviews.
 Properly managed migrations to reflect database structure.
-Basic Deployment
 
+Basic Deployment
 Host the application on a cloud platform Heroku 
 Secure deployment (environment variables, DEBUG mode off).
 Should Have (Important but not critical for immediate delivery)
 These features add significant value and should be included if time permits.
 
 About Page
-
 Informational page about the company and its mission.
 Improved Notificatons
 Confirmation emails for workshop bookings.
