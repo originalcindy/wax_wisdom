@@ -390,6 +390,10 @@ All code has been validated through:
 ![CSS validator test]
 ![alt text](<candle/static/candle/images/css screenshot.png>)
 
+Lighthouse performance testing
+
+![alt text](candle/static/candle/images/lighthousetestwaxwisdom.png)
+
 ### **User Testing**
 
 - **Browser Compatibility**: The website has been tested on Chrome, Firefox, Safari, and Edge.
@@ -535,7 +539,7 @@ As part of my **Wax Wisdom** project, I am dedicated to ensuring that users’ p
 
 - **Data Collection**: Wax Wisdom, as a project, collects personal data during user registration and profile setup. This includes:
   - First and Last Name
-  - Contact Information (Phone Number, Email)
+  - Contact Information (email)
 
 - **Data Usage**: The information gathered is used solely for educational purposes, including:
   - Managing user profiles.
@@ -562,10 +566,12 @@ Since this is an educational project, the privacy and data handling policies may
 - ERD illustration was generated from **lucid.app** 
 
 ### Additional reading/tutorials/books/blogs
+- **The Definitive Guide to SQLite** by Mike Owens
 - **python programming bible** by James P Meyers
 - **Django visual guide** by Ben Bloomfield
 - **Django for Beginners** by William S. Vincent.
 - **Modern operating systems** by Andrew S Tannebaum
+- **youtube tutorials**
 
 ### Supportive Family
 - My family for their support and patience during this project. 
