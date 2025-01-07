@@ -399,10 +399,6 @@ Lighthouse performance testing
 - **Responsiveness**: The platform has been tested on mobile, tablet, and desktop devices to ensure optimal performance.
 - **Automatic Assignment Testing:** Tests were conducted to verify that newly registered users are automatically assigned to the "user" group and that their userProfile was successfully created. This was confirmed through both the user interface and the Django admin panel.
 
-- Lighthouse performance testing
-
-  
-
 ### **Bugs**
 - ### Bug Fix #1: `DISABLE_COLLECTSTATIC` Setting Causing Heroku Deployment Failure
 
@@ -542,7 +538,6 @@ As part of my **Wax Wisdom** project, I am dedicated to ensuring that users’ p
 - **Data Collection**: Wax Wisdom, as a project, collects personal data during user registration and profile setup. This includes:
   - First and Last Name
   - Contact Information (Email)
-  - Contact Information (email)
 
 - **Data Usage**: The information gathered is used solely for educational purposes, including:
   - Managing user profiles.
