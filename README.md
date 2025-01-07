@@ -65,6 +65,10 @@ My inspiration for Wax wisdom came from my joy of making candles.
 
 https://ui.dev/amiresponsive
 
+Live site https://wax-wisdom-a6fcbf849763.herokuapp.com/
+
+For Admin access with relevant sign-in information, click here https://wax-wisdom-a6fcbf849763.herokuapp.com/admin
+
 ## UX - User Experience
 
 Colour Scheme
