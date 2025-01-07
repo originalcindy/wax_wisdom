@@ -75,6 +75,9 @@ Colour Scheme
 I chose pinks, purples and greys as I believe they are aesthetically pleasing and would be appealing to the target audience who are prodominantly women, but not limited to.
 
 ![alt text](<candle/static/candle/images/Wax wisdom colour swatch.png>)
+
+generated using coolors
+
 Primary Color: #2F323A (charcoal grey)
 Secondary Color: #DEBAC0 (Pink)
 Accent Color: #7757A (Purple)
@@ -335,15 +338,15 @@ for admin login internal view
 
 ![alt text](candle/static/candle/images/wwmanagebookings.png)
 
-succesful account creation message
+successful account creation message
 
 ![alt text](candle/static/candle/images/succesfulaccountcreation.png)
 
-succesful login message
+successful login message
 
 ![alt text](candle/static/candle/images/successfullogin.png)
 
-succesful logout message
+successful logout message
 
 ![alt text](candle/static/candle/images/successfullogout.png)
 
@@ -372,6 +375,10 @@ succesful logout message
 -  **sqlparse** - is a Python library that helps with parsing, formatting, and analyzing SQL queries.
 -  **urllib3** -  a foundational library for making HTTP requests in Python
 -  **whitenoise** - is a Python package that simplifies the process of serving static files
+
+Django's Built-in Authentication System:
+
+used Django built-in user authentication system that includes features like user registration, login, logout, and password management. You can work with this system by using django.contrib.auth, which handles authentication and authorization without the need for an additional package like django-allauth.
 
 ## Tools & Programs
 - **GitHub Projects** - Project management and tracking
